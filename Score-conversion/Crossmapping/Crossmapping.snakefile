@@ -2,7 +2,7 @@ configfile: "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snak
 
 rule all:
     input:
-        "split_CADD/crossmapped/all_chr_btpCADD_1_based.bed"
+        "crossmapped/all_chr_btpCADD_1_based.bed"
 
 def get_input_chr(wildcards):
     return config["Chromosomes"][wildcards.sample]
