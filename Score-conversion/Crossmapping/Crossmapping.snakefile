@@ -1,4 +1,4 @@
-configfile: "Crossmapping_config.yaml"
+configfile: "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Score-conversion/Crossmapping/Crossmapping_config.yaml"
 
 rule all:
     input:
@@ -17,8 +17,8 @@ rule split_chCADD:
 
 rule Crossmap_CADD:
     input:
-        chain=config["chain_file"],
-        chromosome=get_bwa_map_input_fastqs
+        config["chain_file"],
+        get_input_chr
     output:
         "crossmapped/{sample}_btpCADD.tsv"
     log:
@@ -26,7 +26,7 @@ rule Crossmap_CADD:
     params:
         "bed"
     shell:
-        "CrossMap.py {prams} {input.chain} {input.chromosome} {output}"
+        "CrossMap.py {prams} {input} {output}"
 
 rule filter_mapped:
     input:
