@@ -2,7 +2,7 @@ configfile: "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snak
 
 rule all:
     input:
-        "crossmapped/all_chr_btpCADD_1_based.bed"
+        "merged_chr/all_chr_btpCADD_1_based.bed"
 
 def get_input_chr(wildcards):
     return config["Chromosomes"][wildcards.sample]
@@ -32,7 +32,7 @@ rule filter_mapped:
     input:
         "crossmapped/{sample}_btpCADD.tsv"
     output:
-        "/crossmapped/filtered/{wildcards.sample}_btpCADD.tsv"
+        "filtered/{sample}_btpCADD.tsv"
     params:
         "'Fail' -v"
     shell:
@@ -40,18 +40,18 @@ rule filter_mapped:
 
 rule convergence:
     input:
-        tsvs=expand("crossmapped/filtered/{sample}_btpCADD.tsv", sample=config["Chromosomes"])
+        tsvs=expand("filtered/{sample}_btpCADD.tsv", sample=config["Chromosomes"])
     output:
-        "crossmapped/all_chr_btpCADD.tsv"
+        "merged_chr/all_chr_btpCADD.tsv"
     shell:
         "cat ${input} >> ${output} "
 
 rule tsv2bed_conversion:
     input:
-        "crossmapped/all_chr_btpCADD.tsv"
+        "merged_chr/all_chr_btpCADD.tsv"
     output:
-        "crossmapped/all_chr_btpCADD_1_based.bed"
+        "merged_chr/all_chr_btpCADD_1_based.bed"
     params:
         remove_1=config["bed_conversion"]
     shell:
-        "zcat ${input} | awk {prams.remove_1} | bgzip > ${output}"
+        "zcat ${input} | awk {params.remove_1} | bgzip > ${output}"
