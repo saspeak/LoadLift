@@ -22,11 +22,11 @@ rule Crossmap_CADD:
     output:
         "crossmapped/{sample}_btpCADD.tsv"
     log:
-        "logs/Crossmapping/{sample}.log"
+        "logs/crossmapping/{sample}.log"
     params:
         "bed"
     shell:
-        "CrossMap.py {prams} {input} {output}"
+        "CrossMap.py {params} {input} {output}"
 
 rule filter_mapped:
     input:
