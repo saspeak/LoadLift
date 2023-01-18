@@ -32,7 +32,7 @@ rule filter_mapped:
     input:
         "crossmapped/{sample}_btpCADD.tsv"
     output:
-        "/crossmapped/{sample}_filtered_btpCADD.tsv"
+        "/crossmapped/filtered/{wildcards.sample}_btpCADD.tsv"
     params:
         "'Fail' -v"
     shell:
@@ -40,7 +40,7 @@ rule filter_mapped:
 
 rule convergence:
     input:
-        tsvs=expand("crossmapped/{sample}_filtered_btpCADD.tsv", sample=config["Chromosomes"])
+        tsvs=expand("crossmapped/filtered/{sample}_btpCADD.tsv", sample=config["Chromosomes"])
     output:
         "crossmapped/all_chr_btpCADD.tsv"
     shell:
