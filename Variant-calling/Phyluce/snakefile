@@ -1,0 +1,55 @@
+
+
+configfile: "UCE-config.yaml"
+
+def get_input_genome(wildcards):
+    return config["samples"][wildcards.sample]
+
+rule all:
+    input:
+        "UCE_{sample}_orient_regions.txt"
+
+rule phyluce_probe_run_multiple_lastzs_sqlite:
+    input:
+        genome=config["genome"],
+        probes=config["probe_file"], 
+        individuals=config["individuals"] 
+    output:
+        "{species}-genome-lastz"
+    params:
+        cores="12"
+    shell:
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {species}.sqlite --output {output} --scaffoldlist {input.individuals} --genome-base-path {input.genome} --probefile {input.probes} --cores  {params.cores}"
+
+rule phyluce_probe_slice_sequence_from_genomes:
+    input:
+        lastz="{species}-genome-lastz/",
+        conf=config["config_file"]
+    output:
+        name="{species}.lastz.clean"
+    params:
+        dir=config["out_dir"],
+        flank=config["flank-size"]
+    shell:
+        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {output.name} --output {params.dir}"
+
+rule orientation_lables:
+    input:
+        "{species}.fasta"
+    output:
+        "UCE_regions.txt"
+    params:
+        columns="-f 2,3,4,6",
+        orient=config["params_orientation"]
+    shell:
+        "grep 'uce' {input} | cut -d '|' {params.columns} | sed -e 's/|/\t/g' | sed -e 's/contig://g' | sed -e 's/slice://g'| sed -e 's/uce://g' | sed -e 's/orient://g' | sed -e 's/uce-/uce_/g' | {params.orient}| sed -e 's/-/\t/g'  > {output}"
+
+rule orientation_separation:
+    input:
+        "UCE_regions.txt"
+    output:
+        "UCE_{sample}_orient_regions.txt"
+    params:
+        "-f 1,2,3"
+    shell:
+        "grep {sample} {input}| cut {params} > {output}"
