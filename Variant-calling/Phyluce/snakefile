@@ -1,7 +1,7 @@
 configfile: "UCE-config.yaml"
 
 def get_input_genome(wildcards):
-    return config["individuals"][wildcards.individual]
+    return config["individuals"][wildcard.individual]
 
 rule make_2bit:
     input:
@@ -13,6 +13,16 @@ rule make_2bit:
     shell:
         "fa2twobit {input.individual} {params.genome_path}/{output}"
 
+rule make_conf_file:
+    input:
+	"{individual}/{individual}.2bit"
+    output:
+	"phyluce_config.txt"
+    params:
+	genome_path=config["genome_path"]
+    shell:
+	"echo {wildcard.individual}:{params.genome_path}/{input} > {output}"
+
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
         genome_path=config["genome_path"],
@@ -23,15 +33,6 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
         cores="12"
     shell:
         "phyluce_probe_run_multiple_lastzs_sqlite --db {wildcard.individual}.sqlite --output {output} --scaffoldlist {wildcard.individual} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
-
-rule make_conf_file:
-    input:
-        genome_path=config["genome_path"],
-        twobit="{individual}/{individual}.2bit"
-    output:
-        conf="phyluce_config.txt"
-    shell:
-        "echo {wildcard.individual}:{input.genome_path}/{input.twobit} > {output.conf}"
 
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
