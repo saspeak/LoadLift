@@ -28,10 +28,11 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
 
 rule make_conf_file:
     input:
-        genome_path=config["genome_path"], 
-        individual="{individual}"
+        genome_path=config["genome_path"]
     output:
         conf=config["config_file"]
+    params:
+        individual="{individual}"
     shell:
         "echo {input.individual}:{input.genome_path}/{input.individual}/{input.individual}.2bit > {output.conf}"
 
