@@ -45,7 +45,7 @@ rule phyluce_probe_slice_sequence_from_genomes:
         lastz="{species}-genome-lastz/",
         conf=config["config_file"]
     output:
-        "{species}/{individual}.fa"
+        "{species}/{individual}.fasta"
     params:
         name="uce-5k-probes.{species}.{individual}.lastz.clean",
         dir=config["out_dir"],
@@ -55,21 +55,31 @@ rule phyluce_probe_slice_sequence_from_genomes:
 
 rule orientation_lables:
     input:
-        "{species}.fasta"
+        "{individual}.fasta"
     output:
-        "UCE_regions.txt"
+        "UCE_regions/{individual}_UCE_regions.txt"
     params:
         columns="-f 2,3,4,6",
         orient=config["params_orientation"]
     shell:
         "grep 'uce' {input} | cut -d '|' {params.columns} | sed -e 's/|/\t/g' | sed -e 's/contig://g' | sed -e 's/slice://g'| sed -e 's/uce://g' | sed -e 's/orient://g' | sed -e 's/uce-/uce_/g' | {params.orient}| sed -e 's/-/\t/g'  > {output}"
 
-rule orientation_separation:
+rule orientation_separation_forward:
     input:
-        "UCE_regions.txt"
+        "UCE_regions/{individual}_UCE_regions.txt"
     output:
-        "UCE_{sample}_orient_regions.txt"
+        "UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt"
     params:
         "-f 1,2,3"
     shell:
-        "grep {sample} {input}| cut {params} > {output}"
+        "grep 'forward' {input}| cut {params} > {output}"
+
+rule orientation_separation_reverse:
+    input:
+        "UCE_regions/{individual}_UCE_regions.txt"
+    output:
+        "UCE_regions/reverse{individual}_UCE_reverse_orient_regions.txt"
+    params:
+        "-f 1,2,3"
+    shell:
+        "grep 'reverse' {input}| cut {params} > {output}"

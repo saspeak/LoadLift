@@ -1,6 +1,8 @@
 individuals: 
   NIATT_ARIZONA: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna
 
+species: passenger_pigeon
+
 genome_path: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/genomes
 
 probe_file: /home/sspeak/projects/joint/ss_lpa_shared/ARBOR-probes/uce-5k-probes.fasta
