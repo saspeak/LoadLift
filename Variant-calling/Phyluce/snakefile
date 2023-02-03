@@ -3,17 +3,29 @@
 configfile: "UCE-config.yaml"
 
 def get_input_genome(wildcards):
-    return config["samples"][wildcards.sample]
+    return config["individuals"][wildcards.individual]
 
 rule all:
     input:
-        "UCE_{sample}_orient_regions.txt"
+        "UCE_forward_orient_regions.txt",
+        "UCE_reverse_orient_regions.txt"
+
+rule make_2bit:
+    input:
+        individual=get_input_genome 
+    output:
+        "{individual}/{individual}.2bit"
+    params:
+        genome_path=config["genome_path"]
+    shell:
+        "fa2twobit {params.genome_path}/{output}"
+
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
         genome=config["genome"],
         probes=config["probe_file"], 
-        individuals=config["individuals"] 
+        individual="{individual}" 
     output:
         "{species}-genome-lastz"
     params:
@@ -21,17 +33,27 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
     shell:
         "phyluce_probe_run_multiple_lastzs_sqlite --db {species}.sqlite --output {output} --scaffoldlist {input.individuals} --genome-base-path {input.genome} --probefile {input.probes} --cores  {params.cores}"
 
+rule make_conf_file:
+    input:
+        genome_path=config["genome_path"], 
+        individual="{individual}"
+    output:
+        conf=config["config_file"]
+    shell:
+        "echo {input.individual}:{input.genome_path}/{input.individual}/{input.individual}.2bit > {output.conf}"
+
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
         lastz="{species}-genome-lastz/",
         conf=config["config_file"]
     output:
-        name="{species}.lastz.clean"
+        "{individual}"
     params:
+        name="uce-5k-probes.{species}.{individual}.lastz.clean"
         dir=config["out_dir"],
         flank=config["flank-size"]
     shell:
-        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {output.name} --output {params.dir}"
+        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {params.name} --output {params.dir}/{output}"
 
 rule orientation_lables:
     input:
