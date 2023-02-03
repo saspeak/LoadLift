@@ -17,14 +17,14 @@ rule make_2bit:
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
         genome_path=config["genome_path"],
-        probes=config["probe_file"], 
-        individual="{individual}" 
+        probes=config["probe_file"]
     output:
         "{individual}-genome-lastz"
     params:
-        cores="12"
+        cores="12",
+        individual="{individual}" 
     shell:
-        "phyluce_probe_run_multiple_lastzs_sqlite --db {individual}.sqlite --output {output} --scaffoldlist {input.individuals} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {individual}.sqlite --output {output} --scaffoldlist {params.individual} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
 
 rule make_conf_file:
     input:
