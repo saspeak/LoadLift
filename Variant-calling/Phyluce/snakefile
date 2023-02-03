@@ -24,7 +24,7 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
         cores="12",
         individual="{individual}" 
     shell:
-        "phyluce_probe_run_multiple_lastzs_sqlite --db {individual}.sqlite --output {output} --scaffoldlist {params.individual} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {params.individual}.sqlite --output {output} --scaffoldlist {params.individual} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
 
 rule make_conf_file:
     input:
