@@ -45,7 +45,7 @@ rule phyluce_probe_slice_sequence_from_genomes:
         lastz="{species}-genome-lastz/",
         conf=config["config_file"]
     output:
-        "{individual}.fa"
+        "{species}/{individual}.fa"
     params:
         name="uce-5k-probes.{species}.{individual}.lastz.clean",
         dir=config["out_dir"],
