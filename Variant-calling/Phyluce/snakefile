@@ -3,11 +3,6 @@ configfile: "UCE-config.yaml"
 def get_input_genome(wildcards):
     return config["individuals"][wildcards.individual]
 
-rule all:
-    input:
-        "UCE_forward_orient_regions.txt",
-        "UCE_reverse_orient_regions.txt"
-
 rule make_2bit:
     input:
         individual=get_input_genome 
@@ -45,7 +40,7 @@ rule phyluce_probe_slice_sequence_from_genomes:
         lastz="{species}-genome-lastz/",
         conf=config["config_file"]
     output:
-        "{species}/{individual}.fasta"
+        "{individual}.fasta"
     params:
         name="uce-5k-probes.{species}.{individual}.lastz.clean",
         dir=config["out_dir"],
