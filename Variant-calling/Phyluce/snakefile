@@ -47,13 +47,13 @@ rule phyluce_probe_slice_sequence_from_genomes:
         lastz="{species}-genome-lastz/",
         conf=config["config_file"]
     output:
-        "{individual}"
+        "{individual}.fa"
     params:
         name="uce-5k-probes.{species}.{individual}.lastz.clean"
         dir=config["out_dir"],
         flank=config["flank-size"]
     shell:
-        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {params.name} --output {params.dir}/{output}"
+        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {params.name} --output {params.dir}"
 
 rule orientation_lables:
     input:
