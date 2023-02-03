@@ -11,7 +11,7 @@ rule make_2bit:
     params:
         genome_path=config["genome_path"]
     shell:
-        "fa2twobit {params.genome_path}/{output}"
+        "fa2twobit {input.individual} {params.genome_path}/{output}"
 
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
