@@ -1,5 +1,3 @@
-
-
 configfile: "UCE-config.yaml"
 
 def get_input_genome(wildcards):
@@ -23,7 +21,7 @@ rule make_2bit:
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
-        genome=config["genome"],
+         genome_path=config["genome_path"],
         probes=config["probe_file"], 
         individual="{individual}" 
     output:
@@ -31,7 +29,7 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
     params:
         cores="12"
     shell:
-        "phyluce_probe_run_multiple_lastzs_sqlite --db {species}.sqlite --output {output} --scaffoldlist {input.individuals} --genome-base-path {input.genome} --probefile {input.probes} --cores  {params.cores}"
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {species}.sqlite --output {output} --scaffoldlist {input.individuals} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
 
 rule make_conf_file:
     input:
@@ -47,13 +45,13 @@ rule phyluce_probe_slice_sequence_from_genomes:
         lastz="{species}-genome-lastz/",
         conf=config["config_file"]
     output:
-        "{individual}"
+        "{individual}.fa"
     params:
-        name="uce-5k-probes.{species}.{individual}.lastz.clean"
+        name="uce-5k-probes.{species}.{individual}.lastz.clean",
         dir=config["out_dir"],
         flank=config["flank-size"]
     shell:
-        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {params.name} --output {params.dir}/{output}"
+        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {params.name} --output {params.dir}"
 
 rule orientation_lables:
     input:
