@@ -30,11 +30,11 @@ rule make_conf_file:
     input:
         genome_path=config["genome_path"]
     output:
-        conf=config["config_file"]
+        "{individual}/{individual}.2bit"
     params:
-        individual="{individual}"
+        conf=config["config_file"]
     shell:
-        "echo {params.individual}:{input.genome_path}/{params.individual}/{params.individual}.2bit > {output.conf}"
+        "echo {individual}:{input.genome_path}/{output} > {params.conf}"
 
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
