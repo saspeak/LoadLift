@@ -20,11 +20,11 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
         probes=config["probe_file"], 
         individual="{individual}" 
     output:
-        "{species}-genome-lastz"
+        "{individual}-genome-lastz"
     params:
         cores="12"
     shell:
-        "phyluce_probe_run_multiple_lastzs_sqlite --db {species}.sqlite --output {output} --scaffoldlist {input.individuals} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {individual}.sqlite --output {output} --scaffoldlist {input.individuals} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
 
 rule make_conf_file:
     input:
@@ -37,12 +37,12 @@ rule make_conf_file:
 
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
-        lastz="{species}-genome-lastz/",
+        lastz="{individual}-genome-lastz/",
         conf=config["config_file"]
     output:
         "{individual}.fasta"
     params:
-        name="uce-5k-probes.{species}.{individual}.lastz.clean",
+        name="uce-5k-probes.{individual}.lastz.clean",
         dir=config["out_dir"],
         flank=config["flank-size"]
     shell:
