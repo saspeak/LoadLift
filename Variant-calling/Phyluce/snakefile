@@ -7,21 +7,23 @@ rule make_2bit:
     input:
         individual=get_input_genome
     output:
-        "{individual}/{individual}.2bit"
+        "{individual}.2bit"
     params:
-        genome_path=config["genome_path"]
+        genome_path=config["genome_path"],
+		bird="{individual}"
     shell:
-        "fa2twobit {input.individual} {params.genome_path}/{output}"
+        "fa2twobit {input.individual} {params.genome_path}/{params.bird}/{output}"
 
 rule make_conf_file:
-    input:
-	"{individual}/{individual}.2bit"
-    output:
-	"phyluce_config.txt"
-    params:
-	genome_path=config["genome_path"]
-    shell:
-	"echo {wildcard.individual}:{params.genome_path}/{input} > {output}"
+	input:
+		"{individual}.2bit"
+	output:
+		"phyluce_config.txt"
+	params:
+		genome_path=config["genome_path"],
+		bird="{individual}"
+	shell:
+		"echo {params.bird}:{params.genome_path}/{params.bird}/{input} > {output}"
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
@@ -30,9 +32,10 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
     output:
         "{individual}-genome-lastz"
     params:
-        cores="12"
+        cores="12",
+		bird="{individual}"
     shell:
-        "phyluce_probe_run_multiple_lastzs_sqlite --db {wildcard.individual}.sqlite --output {output} --scaffoldlist {wildcard.individual} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {params.bird}.sqlite --output {output} --scaffoldlist {params.bird} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
 
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
