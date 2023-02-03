@@ -34,7 +34,7 @@ rule make_conf_file:
     params:
         individual="{individual}"
     shell:
-        "echo {input.individual}:{input.genome_path}/{input.individual}/{input.individual}.2bit > {output.conf}"
+        "echo {input.individual}:{input.genome_path}/{params.individual}/{input.individual}.2bit > {output.conf}"
 
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
