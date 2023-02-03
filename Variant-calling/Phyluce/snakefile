@@ -5,14 +5,14 @@ def get_input_genome(wildcards):
 
 rule make_2bit:
     input:
-        individual=get_input_genome
+        genome=get_input_genome
     output:
         "{individual}.2bit"
     params:
         genome_path=config["genome_path"],
 		bird="{individual}"
     shell:
-        "fa2twobit {input.individual} {params.genome_path}/{params.bird}/{output}"
+        "fa2twobit {input.genome} {params.genome_path}/{params.bird}/{output}"
 
 rule make_conf_file:
 	input:
@@ -20,13 +20,14 @@ rule make_conf_file:
 	output:
 		"phyluce_config.txt"
 	params:
-		genome_path=config["genome_path"],
-		bird="{individual}"
+        genome_path=config["genome_path"],
+        bird="{individual}"
 	shell:
 		"echo {params.bird}:{params.genome_path}/{params.bird}/{input} > {output}"
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
+        genome="{individual}.2bit"
         genome_path=config["genome_path"],
         probes=config["probe_file"]
     output:
