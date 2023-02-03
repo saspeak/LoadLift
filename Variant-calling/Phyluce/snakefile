@@ -21,7 +21,7 @@ rule make_2bit:
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
-         genome_path=config["genome_path"],
+        genome_path=config["genome_path"],
         probes=config["probe_file"], 
         individual="{individual}" 
     output:
