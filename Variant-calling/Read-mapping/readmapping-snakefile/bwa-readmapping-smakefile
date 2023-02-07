@@ -4,6 +4,14 @@ rule all:
     input:
         "plots/plot-quals.svg"
 
+subworkflow otherworkflow:
+    workdir:
+        "/home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/"
+    snakefile:
+        "../../Phyluce/snakefile"
+    configfile:
+        "../../Phyluce/UCE-config.yaml"
+
 def get_input_fastqs(wildcards):
     return config["samples"][wildcards.sample]
 
@@ -94,6 +102,7 @@ rule bcftools_forward_call:
         fa=config["ref_genome"],
         bam=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam", sample=config["samples"]),
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"])
+        UCE_forward=otherworkflow("UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt")
     output:
         forward="variant_calls/forward/all_forward_orient.vcf"
     params:
@@ -108,7 +117,8 @@ rule bcftools_reverse_call:
     input:
         fa=config["ref_genome"],
         bam=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam", sample=config["samples"]),
-        bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"])
+        bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
+        UCE_reverse=otherworkflow("UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt")
     output:
         reverse="variant_calls/reverse/all_reverse_orient.vcf"
     params:
