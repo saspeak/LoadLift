@@ -1,7 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule phyluce_probe_run_multiple_lastzs_sqlite in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/Phyluce/snakefile, line 12:
-Missing input files for rule phyluce_probe_run_multiple_lastzs_sqlite:
-    output: passenger_p-genome-lastz
-    wildcards: species=passenger_p
-    affected files:
-        /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/scaffold_list.txt
