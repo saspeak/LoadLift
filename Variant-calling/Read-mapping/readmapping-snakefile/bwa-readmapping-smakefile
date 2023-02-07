@@ -78,6 +78,8 @@ rule duplicate_removal:
         "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam"
     log:
         "logs/dup_rmv/{sample}.log"
+    conda:
+        "env/aligning_env.yml"
     shell:
         "(picard MarkDuplicates -REMOVE_DUPLICATES true -REMOVE_SEQUENCING_DUPLICATES true -AS true -I {input} -O {output} -M  mapped_reads/outs/{sample}_marked_dup_metrics.txt) 2> {log}"
 
@@ -106,12 +108,15 @@ rule bcftools_forward_call:
     output:
         forward="variant_calls/forward/all_forward_orient.vcf"
     params:
-        ""
+        "-Ou -q 10 -C 50 -a AD,DP "
+    threads: 4
     log:
-        "logs/bcftools_call/all.log"
+        "logs/bcftools_call/all_forward.log"
+    environment:
+        "envs/bcftools_env.yaml"
     shell:
-        "(bcftools mpileup -f {input.fa} {input.bam} | "
-        "bcftools call -mv -P {params.rate} - > {output.forward}) 2> {log}"
+        "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
+        "bcftools call --threads {threads} -Ob > {output.reverse}) 2> {log}"
 
 rule bcftools_reverse_call:
     input:
@@ -122,14 +127,16 @@ rule bcftools_reverse_call:
     output:
         reverse="variant_calls/reverse/all_reverse_orient.vcf"
     params:
-        ""
+        "-Ou -q 10 -C 50 -a AD,DP "
+    threads: 4
     log:
-        "logs/bcftools_call/all.log"
+        "logs/bcftools_call/all_reverse.log"
+    environment:
+        "envs/bcftools_env.yaml"
     shell:
-        "(bcftools mpileup -f {input.fa} {input.bam} | "
-        "bcftools call -mv -P {params.rate} - > {output.reverse}) 2> {log}"
+        "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
+        "bcftools call --threads {threads} -Ob > {output.reverse}) 2> {log}"
 
-reverse="variant_calls/reverse/all_reverse_orient.vcf"
 ####### some post duplicate removal stats using a little python code in a tutorial for snakemake - can remove but is nice to see.
 
 rule plot_quals:

@@ -2,6 +2,7 @@ samples:
     SRR1303448: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/samples/SRR1303448.fastq
     SRR1303453: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/samples/SRR1303453.fastq
 
+######### The Individuals name that you gave to the reference genome that the UCEs were extracted from.
 UCE_individual: NIATT_ARIZONA
 
 ref_genome: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna
