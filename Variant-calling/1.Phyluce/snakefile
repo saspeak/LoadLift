@@ -1,0 +1,83 @@
+configfile: "UCE-config.yaml"
+
+def get_input_genome(wildcards):
+    return config["individuals"][wildcards.individual]
+
+rule make_2bit:
+    input:
+        genome=get_input_genome
+    output:
+        "{individual}.2bit"
+    params:
+        genome_path=config["genome_path"],
+        species="{individual}"
+    shell:
+        "fa2twobit {input.genome} {params.genome_path}/{params.species}/{output}"
+
+rule make_conf_file:
+    input:
+        "{individual}.2bit"
+    output:
+        "phyluce_{individual}_config.txt"
+    params:
+        species="{individual}",
+        genome_path=config["genome_path"]
+    shell:
+        "echo {params.species}:{params.genome_path}/{params.species}/{input} > {output}"
+
+rule phyluce_probe_run_multiple_lastzs_sqlite:
+    input:
+        genome="{individual}.2bit",
+        genome_path=config["genome_path"],
+        probes=config["probe_file"]
+    output:
+        "{individual}-genome-lastz"
+    params:
+        cores="12",
+        species="{individual}"
+    shell:
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {params.species}.sqlite --output {output} --scaffoldlist {params.species} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
+
+rule phyluce_probe_slice_sequence_from_genomes:
+    input:
+        lastz="{individual}-genome-lastz/",
+        conf="phyluce_{individual}_config.txt"
+    output:
+        "UCE/{individual}.fasta"
+    params:
+        name="uce-5k-probes.{individual}.lastz.clean",
+        dir=config["out_dir"],
+        flank=config["flank-size"]
+    shell:
+        "phyluce_probe_slice_sequence_from_genomes --lastz {input.lastz} --conf {input.conf} --flank {params.flank} --name-pattern {params.name} --output {params.dir}"
+
+rule orientation_lables:
+    input:
+        "UCE/{individual}.fasta"
+    output:
+        "UCE_regions/{individual}_UCE_regions.txt"
+    params:
+        columns="-f 2,3,4,6",
+        orient=config["params_orientation"]
+    shell:
+        "grep 'uce' {input} | cut -d '|' {params.columns} | sed -e 's/|/\t/g' | sed -e 's/contig://g' | sed -e 's/slice://g'| sed -e 's/uce://g' | sed -e 's/orient://g' | sed -e 's/uce-/uce_/g' | {params.orient}| sed -e 's/-/\t/g'  > {output}"
+
+rule orientation_separation_forward:
+    input:
+        "UCE_regions/{individual}_UCE_regions.txt"
+    output:
+        "UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt"
+    params:
+        "-f 1,2,3"
+    shell:
+        "grep 'forward' {input}| cut {params} > {output}"
+
+rule orientation_separation_reverse:
+    input:
+        "UCE_regions/{individual}_UCE_regions.txt"
+    output:
+        "UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt"
+    params:
+        "-f 1,2,3"
+    shell:
+        "grep 'reverse' {input}| cut {params} > {output}"
