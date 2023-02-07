@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in rule phyluce_probe_slice_sequence_from_genomes in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/Phyluce/snakefile, line 24:
+Missing input files for rule phyluce_probe_slice_sequence_from_genomes:
+    output: passenger_p-genome.lastz.clean
+    wildcards: species=passenger_p-genome
+    affected files:
+        /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/phyluce_config.txt

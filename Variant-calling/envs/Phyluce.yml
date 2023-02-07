@@ -1,0 +1,21 @@
+name: Phyluce
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - r
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=1_gnu
+  - ca-certificates=2021.10.8=ha878542_0
+  - libgcc-ng=11.2.0=h1d223b6_12
+  - libgomp=11.2.0=h1d223b6_12
+  - libpng=1.6.37=h21135ba_2
+  - libstdcxx-ng=11.2.0=he4da1e4_12
+  - libuuid=2.32.1=h7f98852_1000
+  - libzlib=1.2.11=h36c2ea0_1013
+  - mysql-connector-c=6.1.11=h6eb9d5d_1007
+  - openssl=1.1.1l=h7f98852_0
+  - ucsc-fatotwobit=377=ha8a8165_5
+  - zlib=1.2.11=h36c2ea0_1013
+prefix: /mnt/shared/scratch/sspeak/apps/conda/envs/Phyluce
