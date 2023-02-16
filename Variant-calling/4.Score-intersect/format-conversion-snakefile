@@ -6,44 +6,44 @@ rule indel_rmv:
     input:
         forward="variant_calls/forward/all_{species}_forward_orient.bcf"
     output:
-        forward="variant_calls/forward/all_{species}_forward_orient_snps_only.recode.bcf"
+        "variant_calls/forward/all_{species}_forward_orient_snps_only.recode.bcf"
     params:
-            "--remove-indels --recode --recode-INFO-all"
+        "--remove-indels --recode --recode-INFO-all"
     log:
-        forward="logs/INDEL_rmv/mark_all_forward.log"
+        forward="logs/INDEL_rmv/mark_all_{species}_forward.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(vcftools --bcf {input.forward} {params} --out {output.forward}) 2> {log.forward}"
+        "(vcftools --bcf {input.forward} {params} --out {output}) 2> {log.forward}"
 
 rule format_conversion:
     input:
         forward="variant_calls/forward/all_{species}_forward_orient_snps_only.recode.bcf"
     output:
-        forward="bed_calls/forward/all_{species}_forward_orient.bed"
+        "bed_calls/forward/all_{species}_forward_orient.bed"
     params:
-            "-O v"
+        "-O v"
     log:
-        forward="logs/bed_con/all_forward.log"
+        forward="logs/bed_con/all_{species}_forward.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(bcftools view {input.forward} {params} | vcf2bed > {output.forward}) 2> {log.forward}"
+        "(bcftools view {input.forward} {params} | vcf2bed > {output}) 2> {log.forward}"
 
 
 rule format_conversion:
     input:
         forward="bed_calls/forward/all_{species}_forward_orient.bed"
     output:
-        forward="bed_calls/forward/all_{species}_forward_orient_INDEL_rmv.bed"
+        "bed_calls/forward/all_{species}_forward_orient_INDEL_rmv.bed"
     params:
-            "-v 'INDEL'"
+        "-v 'INDEL'"
     log:
-        "logs/INDEL_rmv/all.log"
+        "logs/INDEL_rmv/all_{species}.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(grep {params} {input.forward} > {output.forward}) 2> {log}"
+        "(grep {params} {input.forward} > {output}) 2> {log}"
 
 rule indel_rmv_rev:
     input:
@@ -51,9 +51,9 @@ rule indel_rmv_rev:
     output:
         "variant_calls/reverse/all_{species}_reverse_orient_snps_only.recode.bcf"
     params:
-            "--remove-indels --recode --recode-INFO-all"
+        "--remove-indels --recode --recode-INFO-all"
     log:
-        rev="logs/INDEL_rmv/mark_all_reverse.log"
+        rev="logs/INDEL_rmv/mark_all_{species}_reverse.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
@@ -65,9 +65,9 @@ rule format_conversion_rev:
     output:
         "bed_calls/reverse/all_{species}_reverse_orient.bed"
     params:
-            "-O v"
+        "-O v"
     log:
-        rev="logs/bed_con/all_reverse.log"
+        rev="logs/bed_con/all_{species}_reverse.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
@@ -79,9 +79,9 @@ rule format_conversion_rev:
     output:
         "bed_calls/reverse/all_{species}_reverse_orient_INDEL_rmv.bed"
     params:
-            "-v 'INDEL'"
+        "-v 'INDEL'"
     log:
-        "logs/INDEL_rmv/all.log"
+        "logs/INDEL_rmv/all_{species}.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
