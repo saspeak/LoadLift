@@ -115,7 +115,7 @@ rule bcftools_forward_call:
     threads: 4
     log:
         "logs/bcftools_call/all_forward.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
@@ -134,7 +134,7 @@ rule bcftools_reverse_call:
     threads: 4
     log:
         "logs/bcftools_call/all_reverse.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "

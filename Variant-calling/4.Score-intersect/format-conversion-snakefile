@@ -12,7 +12,7 @@ rule indel_rmv:
             "--remove-indels --recode --recode-INFO-all"
     log:
         forward="logs/INDEL_rmv/mark_all_forward.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(vcftools --bcf {input.forward} {params} --out {output.forward}) 2> {log.forward}"
@@ -26,7 +26,7 @@ rule format_conversion:
             "-O v"
     log:
         forward="logs/bed_con/all_forward.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools view {input.forward} {params} | vcf2bed > {output.forward}) 2> {log.forward}"
@@ -41,7 +41,7 @@ rule format_conversion:
             "-v 'INDEL'"
     log:
         "logs/INDEL_rmv/all.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(grep {params} {input.forward} > {output.forward}) 2> {log}"
@@ -55,7 +55,7 @@ rule indel_rmv_rev:
             "--remove-indels --recode --recode-INFO-all"
     log:
         rev="logs/INDEL_rmv/mark_all_reverse.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(vcftools --bcf {input.reverse} {params} --out {output}) 2> {log.rev}"
@@ -69,7 +69,7 @@ rule format_conversion_rev:
             "-O v"
     log:
         rev="logs/bed_con/all_reverse.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools view {input.reverse} {params} | vcf2bed > {output}) 2> {log.reverse}"
@@ -83,7 +83,7 @@ rule format_conversion_rev:
             "-v 'INDEL'"
     log:
         "logs/INDEL_rmv/all.log"
-    environment:
+    conda:
         "envs/bcftools_env.yaml"
     shell:
         "(grep {params} {input.reverse} > {output}) 2> {log}"
