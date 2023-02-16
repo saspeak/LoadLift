@@ -16,36 +16,36 @@ rule indel_rmv:
     params:
         "--remove-indels --recode --recode-INFO-all"
     log:
-        forward="logs/INDEL_rmv/mark_all_{species}_{sample}log"
+        "logs/INDEL_rmv/mark_all_{species}_{sample}log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(vcftools --bcf {input.forward} {params} --out {output}) 2> {log.forward}"
+        "(vcftools --bcf {input} {params} --out {output}) 2> {log}"
 
 rule format_conversion:
     input:
-        forward="variant_calls/{sample}/all_{species}_{sample}_orient_snps_only.recode.bcf"
+        "variant_calls/{sample}/all_{species}_{sample}_orient_snps_only.recode.bcf"
     output:
         "bed_calls/{sample}/all_{species}_{sample}_orient.bed"
     params:
         "-O v"
     log:
-        forward="logs/bed_con/all_{species}_{sample}log"
+        "logs/bed_con/all_{species}_{sample}log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(bcftools view {input.forward} {params} | vcf2bed > {output}) 2> {log.forward}"
+        "(bcftools view {input} {params} | vcf2bed > {output}) 2> {log}"
 
 
 rule filter_indel:
     input:
-        forward="bed_calls/{sample}/all_{species}_{sample}_orient.bed"
+        "bed_calls/{sample}/all_{species}_{sample}_orient.bed"
     output:
         "bed_calls/{sample}/all_{species}_{sample}_orient_INDEL_rmv.bed"
     params:
         "-v 'INDEL'"
     log:
-        "logs/INDEL_rmv/all_{species}.log"
+        "logs/INDEL_rmv/all_{species}_{sample}.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
