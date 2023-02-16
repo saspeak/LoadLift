@@ -19,6 +19,6 @@ subworkflow Score_intersect:
     workdir:
         "/home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/alignment/"
     snakefile:
-        "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/4.Score-intersect-snakefile"
+        "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/format-conversion-snakefile"
     configfile:
-        "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/4.Score-intersect-config.yaml"
+        "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Readmapping/bwa_alignment_config.yaml"
