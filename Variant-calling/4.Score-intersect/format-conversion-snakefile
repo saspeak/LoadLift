@@ -1,7 +1,6 @@
 configfile: "bwa_alignment.config.yaml"
 
-species:
-    config["species"]
+species = config["species"]
 
 rule indel_rmv:
     input:
