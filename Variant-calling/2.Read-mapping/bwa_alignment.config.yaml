@@ -8,3 +8,5 @@ UCE_individual: NIATT_ARIZONA
 ref_genome: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna
 
 prior_mutation_rate: 0.001
+
+species: Passenger_pigeon

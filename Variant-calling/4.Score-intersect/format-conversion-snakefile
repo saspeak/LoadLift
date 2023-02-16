@@ -1,47 +1,42 @@
+configfile: "bwa_alignment.config.yaml"
+
+species:
+    config["species"]
+
 rule indel_rmv:
     input:
-        reverse="variant_calls/reverse/all_reverse_orient.bcf",
-        forward="variant_calls/forward/all_forward_orient.bcf"
+        forward="variant_calls/forward/all_{species}_forward_orient.bcf"
     output:
-        reverse="variant_calls/reverse/all_reverse_orient_snps_only.recode.bcf",
-        forward="variant_calls/forward/all_forward_orient_snps_only.recode.bcf"
+        forward="variant_calls/forward/all_{species}_forward_orient_snps_only.recode.bcf"
     params:
             "--remove-indels --recode --recode-INFO-all"
     log:
-        rev="logs/INDEL_rmv/mark_all_reverse.log",
         forward="logs/INDEL_rmv/mark_all_forward.log"
     environment:
         "envs/bcftools_env.yaml"
     shell:
-        "(vcftools --bcf {input.reverse} {params} --out {output.reverse}) 2> {log.rev}"
         "(vcftools --bcf {input.forward} {params} --out {output.forward}) 2> {log.forward}"
 
 rule format_conversion:
     input:
-        reverse="variant_calls/reverse/all_reverse_orient_snps_only.recode.bcf",
-        forward="variant_calls/forward/all_forward_orient_snps_only.recode.bcf"
+        forward="variant_calls/forward/all_{species}_forward_orient_snps_only.recode.bcf"
     output:
-        reverse="bed_calls/reverse/all_reverse_orient.bed",
-        forward="bed_calls/forward/all_forward_orient.bed"
+        forward="bed_calls/forward/all_{species}_forward_orient.bed"
     params:
             "-O v"
     log:
-        rev="logs/bed_con/all_reverse.log",
         forward="logs/bed_con/all_forward.log"
     environment:
         "envs/bcftools_env.yaml"
     shell:
-        "(bcftools view {input.reverse} {params} | vcf2bed > {output.reverse}) 2> {log.reverse}"
         "(bcftools view {input.forward} {params} | vcf2bed > {output.forward}) 2> {log.forward}"
 
 
 rule format_conversion:
     input:
-        reverse="bed_calls/reverse/all_reverse_orient.bed",
-        forward="bed_calls/forward/all_forward_orient.bed"
+        forward="bed_calls/forward/all_{species}_forward_orient.bed"
     output:
-        reverse="bed_calls/reverse/all_reverse_orient_INDEL_rmv.bed",
-        forward="bed_calls/forward/all_forward_orient_INDEL_rmv.bed"
+        forward="bed_calls/forward/all_{species}_forward_orient_INDEL_rmv.bed"
     params:
             "-v 'INDEL'"
     log:
@@ -49,5 +44,46 @@ rule format_conversion:
     environment:
         "envs/bcftools_env.yaml"
     shell:
-        "(grep {params} {input.reverse} > {output.reverse}) 2> {log}"
         "(grep {params} {input.forward} > {output.forward}) 2> {log}"
+
+rule indel_rmv_rev:
+    input:
+        reverse="variant_calls/reverse/all_{species}_reverse_orient.bcf"
+    output:
+        "variant_calls/reverse/all_{species}_reverse_orient_snps_only.recode.bcf"
+    params:
+            "--remove-indels --recode --recode-INFO-all"
+    log:
+        rev="logs/INDEL_rmv/mark_all_reverse.log"
+    environment:
+        "envs/bcftools_env.yaml"
+    shell:
+        "(vcftools --bcf {input.reverse} {params} --out {output}) 2> {log.rev}"
+
+rule format_conversion_rev:
+    input:
+        reverse="variant_calls/reverse/all_{species}_reverse_orient_snps_only.recode.bcf"
+    output:
+        "bed_calls/reverse/all_{species}_reverse_orient.bed"
+    params:
+            "-O v"
+    log:
+        rev="logs/bed_con/all_reverse.log"
+    environment:
+        "envs/bcftools_env.yaml"
+    shell:
+        "(bcftools view {input.reverse} {params} | vcf2bed > {output}) 2> {log.reverse}"
+
+rule format_conversion_rev:
+    input:
+        reverse="bed_calls/reverse/all_{species}_reverse_orient.bed"
+    output:
+        "bed_calls/reverse/all_{species}_reverse_orient_INDEL_rmv.bed"
+    params:
+            "-v 'INDEL'"
+    log:
+        "logs/INDEL_rmv/all.log"
+    environment:
+        "envs/bcftools_env.yaml"
+    shell:
+        "(grep {params} {input.reverse} > {output}) 2> {log}"

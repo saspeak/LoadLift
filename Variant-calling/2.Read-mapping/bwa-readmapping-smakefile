@@ -1,5 +1,8 @@
 configfile: "bwa_alignment.config.yaml"
 
+species:
+    config["species"]
+
 rule all:
     input:
         "plots/plot-quals.svg"
@@ -106,7 +109,7 @@ rule bcftools_forward_call:
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"])
         UCE_forward=otherworkflow("UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt")
     output:
-        forward="variant_calls/forward/all_forward_orient.bcf"
+        forward="variant_calls/forward/all_{species}_forward_orient.bcf"
     params:
         "-Ou -q 10 -C 50 -a AD,DP "
     threads: 4
@@ -125,7 +128,7 @@ rule bcftools_reverse_call:
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
         UCE_reverse=otherworkflow("UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt")
     output:
-        reverse="variant_calls/reverse/all_reverse_orient.bcf"
+        reverse="variant_calls/reverse/all_{species}_reverse_orient.bcf"
     params:
         "-Ou -q 10 -C 50 -a AD,DP "
     threads: 4
