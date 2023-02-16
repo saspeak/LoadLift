@@ -2,6 +2,12 @@ configfile: "../2.Read-mapping/bwa_alignment.config.yaml"
 
 species = config["species"]
 
+rule all:
+	input: 
+		"bed_calls/forward/all_{species}_forward_orient_INDEL_rmv.bed",
+		"bed_calls/reverse/all_{species}_reverse_orient_INDEL_rmv.bed"
+
+
 rule indel_rmv:
     input:
         forward="variant_calls/forward/all_{species}_forward_orient.bcf"
@@ -31,7 +37,7 @@ rule format_conversion:
         "(bcftools view {input.forward} {params} | vcf2bed > {output}) 2> {log.forward}"
 
 
-rule format_conversion:
+rule filter_indel:
     input:
         forward="bed_calls/forward/all_{species}_forward_orient.bed"
     output:
@@ -47,7 +53,7 @@ rule format_conversion:
 
 rule indel_rmv_rev:
     input:
-        reverse="variant_calls/reverse/all_{species}_reverse_orient.bcf"
+        UCE_reverse="variant_calls/reverse/all_{species}_reverse_orient.bcf"
     output:
         "variant_calls/reverse/all_{species}_reverse_orient_snps_only.recode.bcf"
     params:
@@ -57,11 +63,11 @@ rule indel_rmv_rev:
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(vcftools --bcf {input.reverse} {params} --out {output}) 2> {log.rev}"
+        "(vcftools --bcf {input.UCE_reverse} {params} --out {output}) 2> {log.rev}"
 
 rule format_conversion_rev:
     input:
-        reverse="variant_calls/reverse/all_{species}_reverse_orient_snps_only.recode.bcf"
+        UCE_reverse="variant_calls/reverse/all_{species}_reverse_orient_snps_only.recode.bcf"
     output:
         "bed_calls/reverse/all_{species}_reverse_orient.bed"
     params:
@@ -71,11 +77,11 @@ rule format_conversion_rev:
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(bcftools view {input.reverse} {params} | vcf2bed > {output}) 2> {log.reverse}"
+        "(bcftools view {input.UCE_reverse} {params} | vcf2bed > {output}) 2> {log.reverse}"
 
-rule format_conversion_rev:
+rule filter_indel_rev:
     input:
-        reverse="bed_calls/reverse/all_{species}_reverse_orient.bed"
+        UCE_reverse="bed_calls/reverse/all_{species}_reverse_orient.bed"
     output:
         "bed_calls/reverse/all_{species}_reverse_orient_INDEL_rmv.bed"
     params:
@@ -85,4 +91,4 @@ rule format_conversion_rev:
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(grep {params} {input.reverse} > {output}) 2> {log}"
+        "(grep {params} {input.UCE_reverse} > {output}) 2> {log}"
