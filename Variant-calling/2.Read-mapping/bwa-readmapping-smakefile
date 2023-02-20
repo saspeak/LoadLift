@@ -1,6 +1,7 @@
 configfile: "bwa_alignment.config.yaml"
 
 species = config["species"]
+genome = config["ref_genome"]
 
 rule all:
     input:
@@ -36,14 +37,14 @@ rule bwa_map:
     input:
         genome=config["ref_genome"]
     output:
-        index_ref=config["ref_genome"]".fai"
+        "{genome}.fai"
     shell:
         "bwa index {input.genome}"
 
 rule bwa_map:
     input:
         genome=config["ref_genome"],
-        index_ref=config["ref_genome"]".fai",
+        index_ref="{genome}.fai",
         forward="trimmed_reads/{sample}_1_trimmed.fastq",
         reverse="trimmed_reads/{sample}_2_trimmed.fastq"
     output:
