@@ -20,17 +20,15 @@ def get_input_fastqs(wildcards):
 ####### When working with illmina/ non-10X reads we need to trim them and align them separately. 
 rule fastq_trimming:
     input:
-        forward=get_input_fastqs"_1.fastq"
-        reverse=get_input_fastqs"_2.fastq"
+        get_input_fastqs
     output:
-        forward="trimmed_reads/{sample}_1_trimmed.fastq"
-        reverse="trimmed_reads/{sample}_2_trimmed.fastq"
+        "trimmed_reads/{sample}_trimmed"
     params:
         '("-M 0.05 -N 0.75 -m 0.8 -n 0.02 -X 0.25 -Z 26")'
-    logs:
+    log:
         "logs/seq_prep/{sample}.log"
     shell:
-        "(SeqPrep {params} -f {input.forward} -r {input.reverse} -1 {output.forward} -2 {output.reverse}) 2> {log}"
+        "(SeqPrep {params} -f {input} -r {input} -1 {output}.fastq -2 {output}_2.fastq) 2> {log}"
 
 ####### Once the reads have been trimmed we can align them to the reference genome using bwa mem 
 
@@ -38,7 +36,7 @@ rule bwa_map:
     input:
         genome=config["ref_genome"]
     output:
-        config["ref_genome"]".fai"
+        index_ref=config["ref_genome"]".fai"
     shell:
         "bwa index {input.genome}"
 
@@ -105,7 +103,7 @@ rule bcftools_forward_call:
     input:
         fa=config["ref_genome"],
         bam=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam", sample=config["samples"]),
-        bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"])
+        bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
         UCE_forward=otherworkflow("UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt")
     output:
         forward="variant_calls/forward/all_{species}_forward_orient.bcf"
@@ -153,3 +151,4 @@ rule plot_quals:
         "scripts/plot-quals.py"
 
 ######## once you have the VCF files for the forward and reverse within the UCEs you can move onto scoring.
+
