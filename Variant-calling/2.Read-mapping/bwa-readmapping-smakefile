@@ -2,6 +2,7 @@ configfile: "bwa_alignment.config.yaml"
 
 species = config["species"]
 genome = config["ref_genome"]
+individual = config["UCE_individual"]
 
 rule all:
     input:
@@ -33,7 +34,7 @@ rule fastq_trimming:
 
 ####### Once the reads have been trimmed we can align them to the reference genome using bwa mem 
 
-rule bwa_map:
+rule bwa_index:
     input:
         genome=config["ref_genome"]
     output:
@@ -45,8 +46,7 @@ rule bwa_map:
     input:
         genome=config["ref_genome"],
         index_ref="{genome}.fai",
-        forward="trimmed_reads/{sample}_1_trimmed.fastq",
-        reverse="trimmed_reads/{sample}_2_trimmed.fastq"
+        forward="trimmed_reads/{sample}_1_trimmed.fastq"
     output:
         temp("mapped_reads/{sample}.bam")
     params:
@@ -55,7 +55,7 @@ rule bwa_map:
         "logs/bwa_mem/{sample}.log"
     threads: 8
     shell:
-        "(bwa mem -R '{params.rg}' -t {threads} {input.genome} {input.forward} {input.reverse} | "
+        "(bwa mem -R '{params.rg}' -t {threads} {input.genome} {input.forward} | "
         "samtools view -Sb - > {output}) 2> {log}"
 
 ##### Once we have the aligned bam files we need to do duplicate and indel removal 
@@ -107,17 +107,17 @@ rule bcftools_forward_call:
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
         UCE_forward=otherworkflow("UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt")
     output:
-        forward="variant_calls/forward/all_{species}_forward_orient.bcf"
+        "variant_calls/forward/all_{species}_forward_orient.bcf"
     params:
         "-Ou -q 10 -C 50 -a AD,DP "
     threads: 4
     log:
-        "logs/bcftools_call/all_forward.log"
+        "logs/bcftools_call/all_{species}_forward.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
-        "bcftools call --threads {threads} -c -Ob > {output.reverse}) 2> {log}"
+        "bcftools call --threads {threads} -c -Ob > {output}) 2> {log}"
 
 rule bcftools_reverse_call:
     input:
@@ -126,24 +126,24 @@ rule bcftools_reverse_call:
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
         UCE_reverse=otherworkflow("UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt")
     output:
-        reverse="variant_calls/reverse/all_{species}_reverse_orient.bcf"
+        "variant_calls/reverse/all_{species}_reverse_orient.bcf"
     params:
         "-Ou -q 10 -C 50 -a AD,DP "
     threads: 4
     log:
-        "logs/bcftools_call/all_reverse.log"
+        "logs/bcftools_call/all_{species}_reverse.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
-        "bcftools call --threads {threads} -c -Ob > {output.reverse}) 2> {log}"
+        "bcftools call --threads {threads} -c -Ob > {output}) 2> {log}"
 
 ####### some post duplicate removal stats using a little python code in a tutorial for snakemake - can remove but is nice to see.
 
 rule plot_quals:
     input:
-        "variant_calls/forward/all_forward_orient.bcf",
-        "variant_calls/reverse/all_reverse_orient.bcf"
+        "variant_calls/forward/all_{species}_forward_orient.bcf",
+        "variant_calls/reverse/all_{species}_reverse_orient.bcf"
     output:
         "plots/quals.svg"
     log:
