@@ -106,22 +106,22 @@ rule bcftools_forward_call:
         fa=config["ref_genome"],
         bam=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam", sample=config["samples"]),
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
-        #UCE_forward_path="UCE_regions/forward/",
-        #individual=config["UCE_individual"],
-        #UCE_file="_UCE_forward_orient_regions.txt"
-        UCE_forward=phyluce_workflow("UCE_regions/forward/UCE_forward_orient_regions.txt")
+        #UCE_forward=phyluce_workflow("UCE_regions/forward/UCE_forward_orient_regions.txt")
     output:
         "variant_calls/forward/all_{species}_forward_orient.bcf"
     params:
-        "-Ou -q 10 -C 50 -a AD,DP "
+        calling="-Ou -q 10 -C 50 -a AD,DP ",
+        UCE_forward_path="UCE_regions/forward/",
+        individual=config["UCE_individual"],
+        UCE_file="_UCE_forward_orient_regions.txt"
     threads: 4
     log:
         "logs/bcftools_call/all_{species}_forward.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        #"(bcftools mpileup --threads {threads} {params} -f {input.UCE_forward_path}{input.individual}{input.UCE_file} {input.bam} | "
-        "(bcftools mpileup --threads {threads} {params} -f {input.UCE_forward} {input.bam} | "
+        "(bcftools mpileup --threads {threads} {params.calling} -f {params.UCE_forward_path}{params.individual}{params.UCE_file} {input.bam} | "
+        #"(bcftools mpileup --threads {threads} {params} -f {input.UCE_forward} {input.bam} | "
         "bcftools call --threads {threads} -c -Ob > {output}) 2> {log}"
 
 rule bcftools_reverse_call:
@@ -129,22 +129,22 @@ rule bcftools_reverse_call:
         fa=config["ref_genome"],
         bam=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam", sample=config["samples"]),
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
-        #UCE_reverse_path="UCE_regions/reverse/",
-        #individual=config["UCE_individual"],
-        #UCE_file="_UCE_reverse_orient_regions.txt"
-        UCE_reverse = phyluce_workflow("UCE_regions/reverse/UCE_reverse_orient_regions.txt")
+        #UCE_reverse = phyluce_workflow("UCE_regions/reverse/UCE_reverse_orient_regions.txt")
     output:
         "variant_calls/reverse/all_{species}_reverse_orient.bcf"
     params:
-        "-Ou -q 10 -C 50 -a AD,DP "
+        calling="-Ou -q 10 -C 50 -a AD,DP ",
+        UCE_reverse_path="UCE_regions/reverse/",
+        individual=config["UCE_individual"],
+        UCE_file="_UCE_reverse_orient_regions.txt"
     threads: 4
     log:
         "logs/bcftools_call/all_{species}_reverse.log"
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
-        #"(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse_path}{input.individual}{input.UCE_file} {input.bam} | "
+        #"(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
+        "(bcftools mpileup --threads {threads} {params.calling} -f {params.UCE_reverse_path}{params.individual}{params.UCE_file} {input.bam} | "
         "bcftools call --threads {threads} -c -Ob > {output}) 2> {log}"
 
 ####### some post duplicate removal stats using a little python code in a tutorial for snakemake - can remove but is nice to see.
