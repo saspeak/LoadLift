@@ -9,11 +9,13 @@ def get_input_chr(wildcards):
 
 rule split_chCADD:
     input:
-        chCADD_raw=config["chCADD_raw"],
+        chCADD_raw=config["chCADD_raw"]
+    params:
+        real-out="/home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr'$1'.tsv"
     output:
-        "/home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr'$1'.tsv"
+        "/home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr{wildcard.sample}.tsv"
     shell:
-        "zcat {input.chCADD_raw} | awk -F '\t' '{print > ({output})}'"
+        "zcat {input.chCADD_raw} | awk -F '\t' '{print > ({params.real-out})}'"
 
 rule Crossmap_CADD:
     input:
