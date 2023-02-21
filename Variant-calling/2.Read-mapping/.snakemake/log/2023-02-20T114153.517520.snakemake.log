@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in rule plot_quals in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile, line 143:
+Missing input files for rule plot_quals:
+    output: plots/quals.svg
+    affected files:
+        variant_calls/reverse/all_reverse_orient.bcf
+        variant_calls/forward/all_forward_orient.bcf

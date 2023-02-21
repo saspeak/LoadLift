@@ -1,0 +1,3 @@
+Building DAG of jobs...
+MissingRuleException:
+No rule to produce bed_calls/forward/all_forward_orient_INDEL_rmv.bed (if you use input functions make sure that they don't raise unexpected exceptions).

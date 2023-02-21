@@ -1,0 +1,4 @@
+Building DAG of jobs...
+WildcardError in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile, line 122:
+Wildcards in input files cannot be determined from output files:
+'individual'

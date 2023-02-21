@@ -1,0 +1,3 @@
+CreateRuleException in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile, line 44:
+The name bwa_map is already used by another rule
+  File "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile", line 44, in <module>

@@ -1,7 +1,12 @@
-configfile: "UCE-config.yaml"
+configfile: "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/1.Phyluce/UCE-config.yaml"
 
 def get_input_genome(wildcards):
     return config["individuals"][wildcards.individual]
+
+rule all:
+	input:
+		"UCE_regions/reverse/UCE_reverse_orient_regions.txt",
+		"UCE_regions/forward/UCE_forward_orient_regions.txt"
 
 rule make_2bit:
     input:
@@ -66,7 +71,7 @@ rule orientation_separation_forward:
     input:
         "UCE_regions/{individual}_UCE_regions.txt"
     output:
-        "UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt"
+        "UCE_regions/forward/UCE_forward_orient_regions.txt"
     params:
         "-f 1,2,3"
     shell:
@@ -76,7 +81,7 @@ rule orientation_separation_reverse:
     input:
         "UCE_regions/{individual}_UCE_regions.txt"
     output:
-        "UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt"
+        "UCE_regions/reverse/UCE_reverse_orient_regions.txt"
     params:
         "-f 1,2,3"
     shell:

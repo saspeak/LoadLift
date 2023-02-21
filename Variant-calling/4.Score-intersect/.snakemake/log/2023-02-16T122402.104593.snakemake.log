@@ -1,0 +1,4 @@
+Building DAG of jobs...
+WildcardError in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/format-conversion-snakefile, line 5:
+Wildcards in input files cannot be determined from output files:
+'species'

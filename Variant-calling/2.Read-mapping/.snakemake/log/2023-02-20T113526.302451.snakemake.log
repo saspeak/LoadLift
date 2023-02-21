@@ -1,0 +1,3 @@
+SyntaxError:
+Not all output, log and benchmark files of rule bcftools_forward_call contain the same wildcards. This is crucial though, in order to avoid that two or more jobs write to the same file.
+  File "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile", line 102, in <module>

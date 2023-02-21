@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in rule indel_rmv_rev in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/format-conversion-snakefile, line 54:
+Missing input files for rule indel_rmv_rev:
+    output: variant_calls/reverse/all_passenger_reverse_orient_snps_only.recode.bcf
+    wildcards: species=passenger
+    affected files:
+        variant_calls/reverse/all_passenger_reverse_orient.bcf

@@ -1,0 +1,3 @@
+WorkflowError in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/format-conversion-snakefile, line 1:
+Workflow defines configfile bwa_alignment.config.yaml but it is not present or accessible.
+  File "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/format-conversion-snakefile", line 1, in <module>

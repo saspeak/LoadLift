@@ -1,0 +1,3 @@
+AttributeError in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/format-conversion-snakefile, line 48:
+invalid name for input, output, wildcard, params or log: reverse is reserved for internal use
+  File "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/4.Score-intersect/format-conversion-snakefile", line 48, in <module>

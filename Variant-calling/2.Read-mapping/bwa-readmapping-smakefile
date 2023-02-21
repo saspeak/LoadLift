@@ -1,20 +1,21 @@
-configfile: "bwa_alignment.config.yaml"
+configfile: "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
 
 species = config["species"]
 genome = config["ref_genome"]
+
 individual = config["UCE_individual"]
 
 rule all:
     input:
         "plots/plot-quals.svg"
 
-subworkflow otherworkflow:
+subworkflow phyluce_workflow:
     workdir:
         "/home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/"
     snakefile:
-        "../../Phyluce/snakefile"
+        "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/1.Phyluce/snakefile"
     configfile:
-        "../../Phyluce/UCE-config.yaml"
+        "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/1.Phyluce/UCE-config.yaml"
 
 def get_input_fastqs(wildcards):
     return config["samples"][wildcards.sample]
@@ -24,13 +25,13 @@ rule fastq_trimming:
     input:
         get_input_fastqs
     output:
-        "trimmed_reads/{sample}_trimmed"
+        "trimmed_reads/{sample}_trimmed.fastq"
     params:
         '("-M 0.05 -N 0.75 -m 0.8 -n 0.02 -X 0.25 -Z 26")'
     log:
         "logs/seq_prep/{sample}.log"
     shell:
-        "(SeqPrep {params} -f {input} -r {input} -1 {output}.fastq -2 {output}_2.fastq) 2> {log}"
+        "(SeqPrep {params} -f {input} -r {input} -1 {output} -2 2_{output}) 2> {log}"
 
 ####### Once the reads have been trimmed we can align them to the reference genome using bwa mem 
 
@@ -38,15 +39,15 @@ rule bwa_index:
     input:
         genome=config["ref_genome"]
     output:
-        "{genome}.fai"
+        config["ref_genome_index"]
     shell:
         "bwa index {input.genome}"
 
 rule bwa_map:
     input:
         genome=config["ref_genome"],
-        index_ref="{genome}.fai",
-        forward="trimmed_reads/{sample}_1_trimmed.fastq"
+        index_ref=config["ref_genome_index"],
+        forward="trimmed_reads/{sample}_trimmed.fastq"
     output:
         temp("mapped_reads/{sample}.bam")
     params:
@@ -105,7 +106,10 @@ rule bcftools_forward_call:
         fa=config["ref_genome"],
         bam=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam", sample=config["samples"]),
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
-        UCE_forward=otherworkflow("UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt")
+        #UCE_forward_path="UCE_regions/forward/",
+        #individual=config["UCE_individual"],
+        #UCE_file="_UCE_forward_orient_regions.txt"
+        UCE_forward=phyluce_workflow("UCE_regions/forward/UCE_forward_orient_regions.txt")
     output:
         "variant_calls/forward/all_{species}_forward_orient.bcf"
     params:
@@ -116,7 +120,8 @@ rule bcftools_forward_call:
     conda:
         "envs/bcftools_env.yaml"
     shell:
-        "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
+        #"(bcftools mpileup --threads {threads} {params} -f {input.UCE_forward_path}{input.individual}{input.UCE_file} {input.bam} | "
+        "(bcftools mpileup --threads {threads} {params} -f {input.UCE_forward} {input.bam} | "
         "bcftools call --threads {threads} -c -Ob > {output}) 2> {log}"
 
 rule bcftools_reverse_call:
@@ -124,7 +129,10 @@ rule bcftools_reverse_call:
         fa=config["ref_genome"],
         bam=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam", sample=config["samples"]),
         bai=expand("/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai", sample=config["samples"]),
-        UCE_reverse=otherworkflow("UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt")
+        #UCE_reverse_path="UCE_regions/reverse/",
+        #individual=config["UCE_individual"],
+        #UCE_file="_UCE_reverse_orient_regions.txt"
+        UCE_reverse = phyluce_workflow("UCE_regions/reverse/UCE_reverse_orient_regions.txt")
     output:
         "variant_calls/reverse/all_{species}_reverse_orient.bcf"
     params:
@@ -136,6 +144,7 @@ rule bcftools_reverse_call:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse} {input.bam} | "
+        #"(bcftools mpileup --threads {threads} {params} -f {input.UCE_reverse_path}{input.individual}{input.UCE_file} {input.bam} | "
         "bcftools call --threads {threads} -c -Ob > {output}) 2> {log}"
 
 ####### some post duplicate removal stats using a little python code in a tutorial for snakemake - can remove but is nice to see.
