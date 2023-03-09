@@ -4,8 +4,8 @@ species = config["species"]
 
 rule all:
 	input: 
-		"bed_calls/forward/all_{species}_forward_orient_INDEL_rmv.bed",
-		"bed_calls/reverse/all_{species}_reverse_orient_INDEL_rmv.bed"
+		"bed_calls/forward/all_"+ species +"_forward_orient_INDEL_rmv.bed",
+		"bed_calls/reverse/all_"+ species +"_reverse_orient_INDEL_rmv.bed"
 
 
 rule indel_rmv:
