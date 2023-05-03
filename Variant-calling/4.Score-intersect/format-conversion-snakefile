@@ -7,7 +7,6 @@ rule all:
 		"bed_calls/forward/all_"+ species +"_forward_orient_INDEL_rmv.bed",
 		"bed_calls/reverse/all_"+ species +"_reverse_orient_INDEL_rmv.bed"
 
-
 rule indel_rmv:
     input:
         "variant_calls/{sample}/all_{species}_{sample}_orient.bcf"
@@ -35,7 +34,6 @@ rule format_conversion:
         "envs/bcftools_env.yaml"
     shell:
         "(bcftools view {input} {params} | vcf2bed > {output}) 2> {log}"
-
 
 rule filter_indel:
     input:

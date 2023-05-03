@@ -1,0 +1,39 @@
+configfile: "../2.Read-mapping/bwa_alignment.config.yaml"
+
+species = config["species"]
+
+rule all:
+	input: 
+		"bed_calls/forward/all_"+ species +"_forward_orient_INDEL_rmv.bed",
+		"bed_calls/reverse/all_"+ species +"_reverse_orient_INDEL_rmv.bed"
+
+
+rule intersection_reverse:
+    input:
+        bed="bed_calls/{sample}/all_{species}_{sample}_orient_INDEL_rmv.bed"
+        CADD="merged_chr/all_chr_btpCADD_1_based.bed.gz"
+    output:
+        "bed_calls/reverse/intersect/all_"+ species +"_reverse_orient_INDEL_rmv_intersect_CADD.bed"
+    params:
+        "-wa -wb"
+    log:
+        "logs/intersect/intersect_all_{species}_{sample}log"
+    conda:
+        "envs/bcftools_env.yaml"
+    shell:
+        "(bedtools intersect -a {input.CADD} -b {input.bed} {params} > {output}) 2> {log}"
+
+rule SNP_check_reverse:
+    input:
+        "bed_calls/{sample}/all_{species}_{sample}_orient_INDEL_rmv.bed"
+    output:
+        "bed_calls/reverse/intersect/summary/all_"+ species +"_reverse_orient_INDEL_rmv_intersect_CADD_summary.bed"
+    params:
+        "-f ../scripts/SNP_check-short_Or_reverse_corr.awk"
+    log:
+        "logs/intersect/intersect_all_{species}_{sample}log"
+    conda:
+        "envs/bcftools_env.yaml"
+    shell:
+        "(awk {params} {input} > {output}) 2> {log}"
+
