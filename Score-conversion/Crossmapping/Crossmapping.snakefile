@@ -11,7 +11,7 @@ rule split_chCADD:
     input:
         chCADD_raw=config["chCADD_raw"]
     params:
-        real-out="/home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr'$1'.tsv"
+        real_out="/home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr'$1'.tsv"
     output:
         "/home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr{wildcard.sample}.tsv"
     shell:
@@ -52,7 +52,7 @@ rule tsv2bed_conversion:
     input:
         "merged_chr/all_chr_btpCADD.tsv"
     output:
-        "merged_chr/all_chr_btpCADD_1_based.bed"
+        "merged_chr/all_chr_btpCADD_1_based.bed.gz"
     params:
         remove_1=config["bed_conversion"]
     shell:

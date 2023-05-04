@@ -35,7 +35,7 @@ rule fastq_trimming:
 
 ####### Once the reads have been trimmed we can align them to the reference genome using bwa mem 
 
-rule bwa_index:
+rule bwa_index: 
     input:
         genome=config["ref_genome"]
     output:
