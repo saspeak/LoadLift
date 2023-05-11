@@ -54,7 +54,11 @@ rule tsv2bed_conversion:
     input:
         "merged_chr/all_chr_GruAmeCADD.tsv"
     output:
+<<<<<<< HEAD
         "merged_chr/all_chr_GruAmeCADD_1_based.bed"
+=======
+        "merged_chr/all_chr_btpCADD_1_based.bed.gz"
+>>>>>>> dbd7be1a15e2e280cfc70bab5c405a198edf7cae
     params:
         remove_1=config["bed_conversion"]
     shell:
