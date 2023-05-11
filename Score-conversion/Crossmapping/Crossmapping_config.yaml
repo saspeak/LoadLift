@@ -34,7 +34,13 @@ Chromosomes:
     chrZ: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chrZ.tsv
 
 
-chCADD_raw: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/chCADD-scores/chCADD.tsv.gz
+chicken_ref: /home/sspeak/projects/joint/ss_lpa_shared/chicken_Galgal6_ref/Gallus_gallus.GRCg6a.dna_rm.toplevel.fa
+
+species_ref: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/ref_genome/ncbi-genomes-2023-05-03/GCF_028858705.1_bGruAme1.mat_genomic.fna.gz
+
+chCADD_raw: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/chCADD.tsv.gz
+
+######### if chain file already exists add PATH below #####
 
 ### passenger pigeon
 #chain_file: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/btp_CADD_scores/galGal6ToPfasc.over.chain.gz
