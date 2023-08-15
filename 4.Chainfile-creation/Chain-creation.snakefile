@@ -153,8 +153,8 @@ rule genome_size_subject:
 
 rule net_chains:
     input:
-        chain="{sample}/chain_file_creation/3.chain/all.sorted.chain",
-        subject_chr="{sample}/chain_file_creation/b{sample}/b{sample}.chrom.size",
+        chain="{sample}/chain_file_creation/3.chain/all.sorted.chain"
+        subject_chr="{sample}/chain_file_creation/b{sample}/b{sample}.chrom.size"
         galgal_chr="{sample}/chain_file_creation/bGalGal/bGalGal.chrom.size"
     params:
         ""
