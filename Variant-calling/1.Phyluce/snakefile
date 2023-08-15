@@ -7,16 +7,18 @@ rule make_2bit:
     input:
         genome=get_input_genome
     output:
-        "{individual}.2bit"
+        "{individual}/{individual}.2bit"
     params:
-        genome_path=config["genome_path"],
-        species="{individual}"
+        genome_path=config["genome_path"]
+        #species="{individual}"
+    conda:
+        "phyluce-1.7.2"
     shell:
-        "fa2twobit {input.genome} {params.genome_path}/{params.species}/{output}"
+        "faToTwoBit {input.genome} {params.genome_path}/{output}"
 
 rule make_conf_file:
     input:
-        "{individual}.2bit"
+        "{individual}/{individual}.2bit"
     output:
         "phyluce_{individual}_config.txt"
     params:
@@ -27,25 +29,36 @@ rule make_conf_file:
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
-        genome="{individual}.2bit",
+        genome="{individual}/{individual}.2bit",
         genome_path=config["genome_path"],
         probes=config["probe_file"]
     output:
-        "{individual}-genome-lastz"
+        "{individual}-genome-lastz/uce-5k-probes.fasta_v_{individual}.lastz.clean"
     params:
         cores="12",
         species="{individual}"
+    conda:
+        "phyluce-1.7.2"
     shell:
-        "phyluce_probe_run_multiple_lastzs_sqlite --db {params.species}.sqlite --output {output} --scaffoldlist {params.species} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
+        "phyluce_probe_run_multiple_lastzs_sqlite --db {params.species}.sqlite --output {params.species}-genome-lastz --scaffoldlist {params.species} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
+
+def individual_lower(wildcards):
+    species_name = wildcards
+    species_name_lower = species_name.lower()
+    lower_fasta = print("UCE/" + species_name_lower + ".fasta")
+    return lower_fasta
 
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
         lastz="{individual}-genome-lastz/",
         conf="phyluce_{individual}_config.txt"
     output:
-        "UCE/{individual}.fasta"
+        #"UCE/"+ individual_lower +".fasta"
+        lower("UCE/{individual}.fasta")
+    conda:
+        "phyluce-1.7.2"
     params:
-        name="uce-5k-probes.{individual}.lastz.clean",
+        name="uce-5k-probes.fasta_v_{individual}.lastz.clean",
         dir=config["out_dir"],
         flank=config["flank-size"]
     shell:
@@ -59,6 +72,8 @@ rule orientation_lables:
     params:
         columns="-f 2,3,4,6",
         orient=config["params_orientation"]
+    conda:
+        "phyluce-1.7.2"
     shell:
         "grep 'uce' {input} | cut -d '|' {params.columns} | sed -e 's/|/\t/g' | sed -e 's/contig://g' | sed -e 's/slice://g'| sed -e 's/uce://g' | sed -e 's/orient://g' | sed -e 's/uce-/uce_/g' | {params.orient}| sed -e 's/-/\t/g'  > {output}"
 
@@ -69,6 +84,8 @@ rule orientation_separation_forward:
         "UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt"
     params:
         "-f 1,2,3"
+    conda:
+        "phyluce-1.7.2"
     shell:
         "grep 'forward' {input}| cut {params} > {output}"
 
@@ -79,5 +96,7 @@ rule orientation_separation_reverse:
         "UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt"
     params:
         "-f 1,2,3"
+    conda:
+        "phyluce-1.7.2"
     shell:
         "grep 'reverse' {input}| cut {params} > {output}"

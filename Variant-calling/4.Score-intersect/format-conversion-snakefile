@@ -1,29 +1,30 @@
-configfile: "../2.Read-mapping/bwa_alignment.config.yaml"
+configfile: "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
 
 species = config["species"]
 
 rule all:
 	input: 
-		"bed_calls/forward/all_"+ species +"_forward_orient_INDEL_rmv.bed",
-		"bed_calls/reverse/all_"+ species +"_reverse_orient_INDEL_rmv.bed"
+		"bed_calls/forward/all_"+ species +"_forward_orient_INDEL_rmv.bed"
+#		"bed_calls/reverse/all_"+ species +"_reverse_orient_INDEL_rmv.bed"
 
 rule indel_rmv:
     input:
         "variant_calls/{sample}/all_{species}_{sample}_orient.bcf"
     output:
-        "variant_calls/{sample}/all_{species}_{sample}_orient_snps_only.recode.bcf"
+        "variant_calls/{sample}/all_{species}_{sample}_orient_snps_only.recode.vcf"
     params:
-        "--remove-indels --recode --recode-INFO-all"
+        flags = "--remove-indels --recode --recode-INFO-all",
+        real_out = "variant_calls/{sample}/all_{species}_{sample}_orient_snps_only"
     log:
         "logs/INDEL_rmv/mark_all_{species}_{sample}log"
     conda:
-        "envs/bcftools_env.yaml"
+        "bcftools_env"
     shell:
-        "(vcftools --bcf {input} {params} --out {output}) 2> {log}"
+        "(vcftools --bcf {input} {params.flags} --out {params.real_out}) 2> {log}"
 
 rule format_conversion:
     input:
-        "variant_calls/{sample}/all_{species}_{sample}_orient_snps_only.recode.bcf"
+        "variant_calls/{sample}/all_{species}_{sample}_orient_snps_only.recode.vcf"
     output:
         "bed_calls/{sample}/all_{species}_{sample}_orient.bed"
     params:
@@ -31,9 +32,9 @@ rule format_conversion:
     log:
         "logs/bed_con/all_{species}_{sample}log"
     conda:
-        "envs/bcftools_env.yaml"
+        "bcftools_env"
     shell:
-        "(bcftools view {input} {params} | vcf2bed > {output}) 2> {log}"
+        "(vcf2bed < {input} > {output}) 2> {log}"
 
 rule filter_indel:
     input:
@@ -45,6 +46,7 @@ rule filter_indel:
     log:
         "logs/INDEL_rmv/all_{species}_{sample}.log"
     conda:
-        "envs/bcftools_env.yaml"
+        "bcftools_env"
     shell:
-        "(grep {params} {input.forward} > {output}) 2> {log}"
+        "(grep {params} {input} > {output}) 2> {log}"
+

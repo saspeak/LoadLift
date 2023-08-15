@@ -10,4 +10,5 @@ ref_genome_index: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/bas
 
 prior_mutation_rate: 0.001
 
-species: Passenger_pigeon
+#species: Passenger_pigeon
+species: GruAme

@@ -1,0 +1,27 @@
+Building DAG of jobs...
+Subworkflow phyluce_workflow: Nothing to be done (all requested files are present and up to date).
+Executing main workflow.
+Using shell: /usr/bin/bash
+Conda environments: ignored
+Job stats:
+job               count    min threads    max threads
+--------------  -------  -------------  -------------
+bwa_map               1              8              8
+fastq_trimming        1              1              1
+total                 2              1              8
+
+Select jobs to execute...
+
+[Tue Feb 21 11:45:08 2023]
+rule fastq_trimming:
+    input: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/fastq/SRR1303448.fastq
+    output: trimmed_reads/SRR1303448_trimmed.fastq
+    log: logs/seq_prep/SRR1303448.log
+    jobid: 2
+    reason: Missing output files: trimmed_reads/SRR1303448_trimmed.fastq
+    wildcards: sample=SRR1303448
+    resources: mem_mb=169061, mem_mib=161230, disk_mb=169061, disk_mib=161230, tmpdir=<TBD>, slurm_account=sspeak, slurm_partition=short
+
+WorkflowError:
+The given account sspeak appears to be invalid. Available accounts:
+cropdiv-acc

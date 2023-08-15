@@ -1,0 +1,33 @@
+Building DAG of jobs...
+Subworkflow phyluce_workflow: Nothing to be done (all requested files are present and up to date).
+Executing main workflow.
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=2000, mem_mib=1908, disk_mb=169061, disk_mib=161230
+Conda environments: ignored
+Select jobs to execute...
+Building DAG of jobs...
+Subworkflow phyluce_workflow: Nothing to be done (all requested files are present and up to date).
+Executing main workflow.
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=2000, mem_mib=1908, disk_mb=169061, disk_mib=161230
+Conda environments: ignored
+Select jobs to execute...
+
+[Wed Feb 22 17:03:04 2023]
+rule fastq_trimming:
+    input: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/fastq/SRR1303448.fastq
+    output: trimmed_reads/SRR1303448_trimmed.fq.gz
+    log: logs/seq_prep/SRR1303448.log
+    jobid: 0
+    reason: Missing output files: trimmed_reads/SRR1303448_trimmed.fq.gz
+    wildcards: sample=SRR1303448
+    resources: mem_mb=2000, mem_mib=1908, disk_mb=169061, disk_mib=161230, tmpdir=/tmp/sspeak_5992876, slurm_account=cropdiv-acc, slurm_partition=short, runtime=30
+
+srun: Job step aborted: Waiting up to 122 seconds for job step to finish.
+slurmstepd: error: *** JOB 5992876 ON n19-32-192-abomination CANCELLED AT 2023-02-22T17:32:55 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 5992876.0 ON n19-32-192-abomination CANCELLED AT 2023-02-22T17:32:55 DUE TO TIME LIMIT ***
+Will exit after finishing currently running jobs (scheduler).

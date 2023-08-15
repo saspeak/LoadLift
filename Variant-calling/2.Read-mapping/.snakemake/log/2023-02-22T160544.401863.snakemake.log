@@ -1,0 +1,11 @@
+Building DAG of jobs...
+InputFunctionException in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile, line 24:
+Error:
+  WorkflowError:
+    Failed to evaluate default resources value '6:00:00'.
+        String arguments may need additional quoting. Ex: --default-resources "tmpdir='/home/user/tmp'".
+    SyntaxError: invalid syntax (<string>, line 1)
+Wildcards:
+  sample=SRR1303448
+Traceback:
+

@@ -1,0 +1,2 @@
+/var/spool/slurm/job5992868/slurm_script: line 38: syntax error near unexpected token `"-M 0.05 -N 0.75 -m 0.8 -n 0.02 -X 0.25 -Z 26"'
+/var/spool/slurm/job5992868/slurm_script: line 38: `SeqPrep ("-M 0.05 -N 0.75 -m 0.8 -n 0.02 -X 0.25 -Z 26") \'
