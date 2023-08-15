@@ -1,4 +1,5 @@
 configfile: "Chain_file_creation_config.yaml"
+configfile: "Chain_file_creation_config.yaml"
 
 rule all:
     input:
@@ -58,8 +59,8 @@ rule lastz_alignments:
 
 rule Chain_alignments:
     input:
-        alignment= "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/1.lastz/chr_{chromosome}/bgalgal_{chromosome}_{number}.axt"
-        ch_2bit= "{sample}/chain_file_creation/bGalGal/bGalGal.2bit"
+        alignment= "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/1.lastz/chr_{chromosome}/bgalgal_{chromosome}_{number}.axt",
+        ch_2bit= "{sample}/chain_file_creation/bGalGal/bGalGal.2bit",
         species_2bit= "{sample}/chain_file_creation/b{sample}/b{sample}.2bit"
     params:
         "-minscore=5000 -linearGap=loose"
