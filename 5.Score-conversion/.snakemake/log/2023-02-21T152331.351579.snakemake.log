@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in rule split_chCADD in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Score-conversion/Crossmapping/Crossmapping.snakefile, line 10:
+Missing input files for rule split_chCADD:
+    output: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr16.tsv
+    wildcards: sample=16
+    affected files:
+        /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/chCADD.tsv.gz

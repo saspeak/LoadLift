@@ -1,0 +1,106 @@
+Lints for snakefile /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile:
+    * Absolute path "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml" in line 1:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/1.Phyluce/snakefile" in line 16:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/1.Phyluce/UCE-config.yaml" in line 18:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam" in line 80:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam" in line 96:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai" in line 98:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam" in line 107:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai" in line 108:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam" in line 130:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Absolute path "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai" in line 131:
+      Do not define absolute paths inside of the workflow, since this renders your workflow irreproducible on other machines. Use path relative to the working directory instead, or make the path configurable via a config file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Mixed rules and functions in same snakefile.:
+      Small one-liner functions used only once should be defined as lambda expressions. Other functions should be collected in a common module, e.g. 'rules/common.smk'. This makes the workflow steps more readable.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/modularization.html#includes
+
+Lints for rule fastq_trimming (line 35, /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile):
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+
+Lints for rule bwa_index (line 64, /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile):
+    * No log directive defined:
+      Without a log directive, all output will be printed to the terminal. In distributed environments, this means that errors are harder to discover. In local environments, output of concurrent jobs will be mixed and become unreadable.
+      Also see:
+      https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+
+Lints for rule bwa_map (line 83, /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile):
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+
+Lints for rule samtools_sort (line 120, /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile):
+    * No log directive defined:
+      Without a log directive, all output will be printed to the terminal. In distributed environments, this means that errors are harder to discover. In local environments, output of concurrent jobs will be mixed and become unreadable.
+      Also see:
+      https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+
+Lints for rule duplicate_removal (line 143, /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile):
+    * Shell command directly uses variable sample from outside of the rule:
+      It is recommended to pass all files as input and output, and non-file parameters via the params directive. Otherwise, provenance tracking is less accurate.
+      Also see:
+      https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#non-file-parameters-for-rules
+
+Lints for rule samtools_index (line 176, /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile):
+    * No log directive defined:
+      Without a log directive, all output will be printed to the terminal. In distributed environments, this means that errors are harder to discover. In local environments, output of concurrent jobs will be mixed and become unreadable.
+      Also see:
+      https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+
+Lints for rule plot_quals (line 285, /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa-readmapping-smakefile):
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+

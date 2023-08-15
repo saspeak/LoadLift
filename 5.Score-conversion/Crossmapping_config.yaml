@@ -48,4 +48,4 @@ chCADD_raw: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/chCADD.tsv.gz
 ### Whooping crane
 chain_file: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/chain_file_creation/galGal6ToGruAme.over.chain.gz
 
-bed_conversion: '{OFS="\t"; print $1,$2-1,$2,$3,$4,$5}'
+bed_conversion: OFS="\t"

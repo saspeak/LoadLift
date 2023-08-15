@@ -1,3 +1,0 @@
-Building DAG of jobs...
-MissingRuleException:
-No rule to produce bed_calls/reverse/all_passenger_reverse_orient_INDEL_rmv.bed (if you use input functions make sure that they don't raise unexpected exceptions).

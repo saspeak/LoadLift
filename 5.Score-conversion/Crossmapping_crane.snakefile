@@ -50,7 +50,7 @@ rule filter_mapped:
     output:
         "filtered/{sample}_GruAmeCADD.bed"
     params:
-        "'Fail' -v"
+        "'Unmap' -v"
     shell:
         "grep {params} {input} | cut -f 8,9,10,11,12,13 > {output}"
 
@@ -58,7 +58,7 @@ rule convergence:
     input:
         tsvs=expand("filtered/{sample}_GruAmeCADD.bed", sample=config["Chromosomes"])
     output:
-        "merged_chr/all_chr_1_based_GruAmeCADD.bed"
+        "merged_chr/all_chr_1_based_GruAmeCADD.bed.gz"
     shell:
         "cat {input} | bgzip > {output} "
 
