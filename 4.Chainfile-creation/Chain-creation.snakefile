@@ -1,5 +1,4 @@
 configfile: "Chain_file_creation_config.yaml"
-configfile: "Chain_file_creation_config.yaml"
 
 rule all:
     input:
