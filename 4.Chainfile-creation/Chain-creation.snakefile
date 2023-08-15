@@ -1,4 +1,4 @@
-configfile: "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Score-conversion/Crossmapping/Crossmapping_config.yaml"
+configfile: "Chain_file_creation_config.yaml"
 
 rule all:
     input:
@@ -45,9 +45,9 @@ rule split_species:
 
 rule lastz_alignments:
     input:
-        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/b{sample}"
-        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/bGalGal/"
-        chromosome=config["chrs"]
+        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/b{sample}",
+        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/bGalGal/",
+        chromosome=config["chrs"],
         sequence=config["number"]
     params:
         "--hspthresh=2200 --inner=2000 --ydrop=3400 --gappedthresh=10000 --scores=HoxD55 --chain --format=axt"
@@ -152,8 +152,8 @@ rule genome_size_subject:
 
 rule net_chains:
     input:
-        chain="{sample}/chain_file_creation/3.chain/all.sorted.chain"
-        subject_chr="{sample}/chain_file_creation/b{sample}/b{sample}.chrom.size"
+        chain="{sample}/chain_file_creation/3.chain/all.sorted.chain",
+        subject_chr="{sample}/chain_file_creation/b{sample}/b{sample}.chrom.size",
         galgal_chr="{sample}/chain_file_creation/bGalGal/bGalGal.chrom.size"
     params:
         ""
@@ -164,7 +164,7 @@ rule net_chains:
 
 rule net_Chain_Subset:
     input:
-        net="{sample}/chain_file_creation/4.net/all.net"
+        net="{sample}/chain_file_creation/4.net/all.net",
         chain="{sample}/chain_file_creation/3.chain/all.sorted.chain"
     output:
         "{sample}/chain_file_creation/galGal6To{sample}.over.chain"
