@@ -45,8 +45,8 @@ rule split_species:
 
 rule lastz_alignments:
     input:
-        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/b{sample}",
-        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/bGalGal/",
+        sample_split="/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/b{sample}",
+        chicken_split="/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/bGalGal/",
         chromosome=config["chrs"],
         sequence=config["number"]
     params:
@@ -54,7 +54,7 @@ rule lastz_alignments:
     output:
         "{sample}/chain_file_creation/1.lastz/chr_{input.chromosome}/bgalgal_{input.chromosome}_{input.sequence}.axt"
     shell:
-        "lastz {input.} {params} > {output}"
+        "lastz {input.chicken_split}_{chromosome} {input.sample_split}_{sequence} {params} > {output}"
 
 rule Chain_alignments:
     input:
