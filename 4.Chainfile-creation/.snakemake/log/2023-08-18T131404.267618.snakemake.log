@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in rule split_species in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/4.Chainfile-creation/Ref_split.snakefile, line 36:
+Missing input files for rule split_species:
+    output: /home/sspeak/projects/joint/ss_lpa_shared/GruAme/chain_file_creation/faSplit/bGruAme
+    wildcards: sample=GruAme
+    affected files:
+        /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/ref_genome/ncbi-genomes-2023-05-03/GCF_028858705.1_bGr$

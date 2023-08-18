@@ -1,0 +1,2 @@
+SyntaxError in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/4.Chainfile-creation/Chain-creation.snakefile, line 12:
+Unexpected keyword GalGal_ref in rule definition (Chain-creation.snakefile, line 12)

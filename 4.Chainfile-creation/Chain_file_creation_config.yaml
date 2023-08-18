@@ -1,4 +1,4 @@
-Chromosomes:
+chrs:
     chr1: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr1.tsv
     chr2: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr2.tsv
     chr3: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr3.tsv
