@@ -39,7 +39,7 @@ rule split_species:
     params:
         "byname"
     output:
-        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/b{sample}"
+        "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/faSplit/b{sample}/"
     shell:
         "faSplit {params} {input.species_ref} {output}"
 
@@ -52,7 +52,7 @@ rule lastz_alignments:
     params:
         chr= "bGalGal_{chromosome}",
         seq= "b{sample}_{sequence}",
-        flags= "--hspthresh=2200 --inner=2000 --ydrop=3400 --gappedthresh=10000 --scores=HoxD55 --chain --format=axt"
+        flags= "--hspthresh=2200 --inner=2000 --ydrop=3400 --gappedthresh=10000 --scores=../utilities/HoxD55 --chain --format=axt"
     output:
         "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/1.lastz/chr_{chromosome}/bgalgal_{chromosome}_{sequence}.axt"
     shell:
