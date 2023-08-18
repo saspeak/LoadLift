@@ -72,7 +72,7 @@ rule Chain_alignments:
 
 rule Merge_chains:
     input:
-        expand("/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/2.chain/b{sample}_{sequence}.chain",sequence=config["number"])
+        expand("/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/2.chain/bgalgal_{chromosome}_b{sample}_{sequence}.chain",sample=config["species"],chromosome=config["chrs"],sequence=config["number"])
     output:
         "/home/sspeak/projects/joint/ss_lpa_shared/{sample}/chain_file_creation/3.chain/all.chain"
     shell:

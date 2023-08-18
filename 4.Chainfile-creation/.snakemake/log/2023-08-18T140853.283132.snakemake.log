@@ -1,0 +1,8 @@
+Building DAG of jobs...
+MissingInputException in rule lastz_alignments in file /mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/4.Chainfile-creation/Chain-creation.snakefile, line 46:
+Missing input files for rule lastz_alignments:
+    output: GruAme/chain_file_creation/1.lastz/chr_Z/bgalgal_Z_000.axt
+    wildcards: sample=GruAme, chromosome=Z, sequence=000
+    affected files:
+        /home/sspeak/projects/joint/ss_lpa_shared/GruAme/chain_file_creation/faSplit/bGalGal_Z
+        /home/sspeak/projects/joint/ss_lpa_shared/GruAme/chain_file_creation/faSplit/bGruAme_000
