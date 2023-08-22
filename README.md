@@ -1,4 +1,4 @@
-# reads-2-CADD-snakemake
+# LoadLift
 The pipeline uses as input the sequencing reads of the target individuals, the target species reference genome, and the CADD scores and reference genome of a model species (i.e., chicken, chCADD scores  (Groß, Bortoluzzi, et al., 2020) and the Galgal6 reference genome (Warren et al., 2017). 
 
 ![Slide1](https://github.com/saspeak/reads-2-CADD-snakemake/assets/77833659/9e8d2d2c-1c54-40b0-8218-0b82e131b97c)
