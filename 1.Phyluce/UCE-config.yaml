@@ -1,19 +1,20 @@
 individuals: 
-#  NIATT_ARIZONA: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna
-   GruAme: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/ref_genome/ncbi-genomes-2023-05-03/GCF_028858705.1_bGruAme1.mat_genomic.fna
-#species: passenger_pigeon
-species: Whooping_crane
+    NIATT_ARIZONA: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna
+#   GruAme: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/ref_genome/ncbi-genomes-2023-05-03/GCF_028858705.1_bGruAme1.mat_genomic.fna
 
-#genome_path: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/genomes
-genome_path: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/genomes
+species: passenger_pigeon
+#species: Whooping_crane
+
+genome_path: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/genomes
+#genome_path: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/genomes
 
 probe_file: /home/sspeak/projects/joint/ss_lpa_shared/ARBOR-probes/uce-5k-probes.fasta
 
-#config_file: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/phyluce_config.txt
-config_file: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/phyluce_config.txt
+config_file: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/phyluce_config.txt
+#config_file: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/phyluce_config.txt
 
-#out_dir: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/UCE_outputs
-out_dir:  /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/UCE/extraction
+out_dir: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/genomes/UCE/
+#out_dir:  /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/UCE/extraction
 
 flank-size: 1000
 

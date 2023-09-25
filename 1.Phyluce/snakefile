@@ -1,4 +1,4 @@
-configfile: "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/1.Phyluce/UCE-config.yaml"
+configfile: "/mnt/shared/projects/joint/ss_lpa_shared/scripts/LoadLift/1.Phyluce/UCE-config.yaml"
 
 def get_input_genome(wildcards):
     return config["individuals"][wildcards.individual]
@@ -12,7 +12,7 @@ rule make_2bit:
         genome_path=config["genome_path"]
         #species="{individual}"
     conda:
-        "phyluce-1.7.2"
+        "phyluce-1.7.1"
     shell:
         "faToTwoBit {input.genome} {params.genome_path}/{output}"
 
@@ -25,7 +25,7 @@ rule make_conf_file:
         species="{individual}",
         genome_path=config["genome_path"]
     shell:
-        "echo {params.species}:{params.genome_path}/{params.species}/{input} > {output}"
+        "echo -e [scaffolds] '\n'{params.species}:{params.genome_path}/{input} > {output}"
 
 rule phyluce_probe_run_multiple_lastzs_sqlite:
     input:
@@ -35,10 +35,10 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
     output:
         "{individual}-genome-lastz/uce-5k-probes.fasta_v_{individual}.lastz.clean"
     params:
-        cores="12",
+        cores="4",
         species="{individual}"
     conda:
-        "phyluce-1.7.2"
+        "phyluce-1.7.1"
     shell:
         "phyluce_probe_run_multiple_lastzs_sqlite --db {params.species}.sqlite --output {params.species}-genome-lastz --scaffoldlist {params.species} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
 
@@ -53,10 +53,9 @@ rule phyluce_probe_slice_sequence_from_genomes:
         lastz="{individual}-genome-lastz/",
         conf="phyluce_{individual}_config.txt"
     output:
-        #"UCE/"+ individual_lower +".fasta"
-        lower("UCE/{individual}.fasta")
+       "UCE/{individual}.fasta"
     conda:
-        "phyluce-1.7.2"
+        "phyluce-1.7.1"
     params:
         name="uce-5k-probes.fasta_v_{individual}.lastz.clean",
         dir=config["out_dir"],
@@ -73,7 +72,7 @@ rule orientation_lables:
         columns="-f 2,3,4,6",
         orient=config["params_orientation"]
     conda:
-        "phyluce-1.7.2"
+        "phyluce-1.7.1"
     shell:
         "grep 'uce' {input} | cut -d '|' {params.columns} | sed -e 's/|/\t/g' | sed -e 's/contig://g' | sed -e 's/slice://g'| sed -e 's/uce://g' | sed -e 's/orient://g' | sed -e 's/uce-/uce_/g' | {params.orient}| sed -e 's/-/\t/g'  > {output}"
 
@@ -85,7 +84,7 @@ rule orientation_separation_forward:
     params:
         "-f 1,2,3"
     conda:
-        "phyluce-1.7.2"
+        "phyluce-1.7.1"
     shell:
         "grep 'forward' {input}| cut {params} > {output}"
 
@@ -97,6 +96,6 @@ rule orientation_separation_reverse:
     params:
         "-f 1,2,3"
     conda:
-        "phyluce-1.7.2"
+        "phyluce-1.7.1"
     shell:
         "grep 'reverse' {input}| cut {params} > {output}"
