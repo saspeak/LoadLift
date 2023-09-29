@@ -1,4 +1,4 @@
-configfile: "/mnt/shared/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
+configfile: "{path_to_LoadLift}reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
 
 species = config["species"]
 genome = config["ref_genome"]
@@ -11,7 +11,7 @@ rule all:
 
 subworkflow phyluce_workflow:
     workdir:
-        "/home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/"
+        "{path_to_working_dir}passenger_pigeon/"
     snakefile:
         "../1.Phyluce/snakefile"
     configfile:

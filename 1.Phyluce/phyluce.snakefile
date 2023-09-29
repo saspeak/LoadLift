@@ -1,4 +1,4 @@
-configfile: "/mnt/shared/projects/joint/ss_lpa_shared/scripts/LoadLift/1.Phyluce/UCE-config.yaml"
+configfile: "{path_to_LoadLift}LoadLift/1.Phyluce/UCE-config.yaml"
 
 def get_input_genome(wildcards):
     return config["individuals"][wildcards.individual]
@@ -43,17 +43,17 @@ rule phyluce_probe_run_multiple_lastzs_sqlite:
         "phyluce_probe_run_multiple_lastzs_sqlite --db {params.species}.sqlite --output {params.species}-genome-lastz --scaffoldlist {params.species} --genome-base-path {input.genome_path} --probefile {input.probes} --cores  {params.cores}"
 
 def individual_lower(wildcards):
-    species_name = wildcards
+    species_name = wildcards.individual
     species_name_lower = species_name.lower()
-    lower_fasta = print("UCE/" + species_name_lower + ".fasta")
-    return lower_fasta
+    lower_fasta = "UCE/" + species_name_lower + ".fasta"
+    return species_name_lower
 
 rule phyluce_probe_slice_sequence_from_genomes:
     input:
         lastz="{individual}-genome-lastz/",
         conf="phyluce_{individual}_config.txt"
     output:
-       "UCE/{individual}.fasta"
+        "UCE/{individual}.fasta"
     conda:
         "phyluce-1.7.1"
     params:
@@ -65,7 +65,7 @@ rule phyluce_probe_slice_sequence_from_genomes:
 
 rule orientation_lables:
     input:
-        "UCE/{individual}.fasta"
+       "UCE/{individual).fasta"
     output:
         "UCE_regions/{individual}_UCE_regions.txt"
     params:
@@ -99,3 +99,13 @@ rule orientation_separation_reverse:
         "phyluce-1.7.1"
     shell:
         "grep 'reverse' {input}| cut {params} > {output}"
+
+rule run_all:
+    input:
+        "UCE_regions/forward/{individual}_UCE_forward_orient_regions.txt",
+        "UCE_regions/reverse/{individual}_UCE_reverse_orient_regions.txt",
+        "UCE/{individual}.fasta"
+    output:
+        "{individual}_paths_to_UCEs.txt"
+    shell:
+        "ls {input} > {output}"

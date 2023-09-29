@@ -1,4 +1,4 @@
-configfile: "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
+configfile: "{path_to_working_dir}scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
 
 rule intersection_reverse:
     input:
@@ -22,7 +22,7 @@ rule SNP_orient_correction:
     output:
         "bed_calls/{sample}_reverse/all_{species}_{sample}_reverse_orient_INDEL_rmv_or_cor.bed"
     params:
-        "-f /home/sspeak/projects/joint/ss_lpa_shared/scripts/reads2CADD/ppCADD_intersect/Orient_conversion.awk"
+        "-f {path_to_working_dir}scripts/reads2CADD/ppCADD_intersect/Orient_conversion.awk"
     log:
         "logs/intersect/intersect_all_{species}_{sample}_reverse.log"
     conda:
@@ -36,7 +36,7 @@ rule SNP_check_reverse:
     output:
         "bed_calls/{sample}_reverse/intersect/all_{species}_{sample}_reverse_orient_INDEL_rmv_intersect_CADD_orient_cor_summary.bed"
     params:
-        "-f /home/sspeak/projects/joint/ss_lpa_shared/scripts/reads2CADD/ppCADD_intersect/SNP_check-short_Or_reverse_corr.awk"
+        "-f {path_to_working_dir}scripts/reads2CADD/ppCADD_intersect/SNP_check-short_Or_reverse_corr.awk"
     log:
         "logs/intersect/intersect_all_{species}_{sample}_reverse.log"
     conda:
@@ -66,7 +66,7 @@ rule SNP_check_forward:
     output:
         "bed_calls/{sample}_forward/intersect/all_{species}_{sample}_forward_orient_INDEL_rmv_intersect_CADD_summary.bed"
     params:
-        "-f /home/sspeak/projects/joint/ss_lpa_shared/scripts/reads2CADD/ppCADD_intersect/SNP_check-short.awk"
+        "-f {path_to_working_dir}scripts/reads2CADD/ppCADD_intersect/SNP_check-short.awk"
     log:
         "logs/intersect/intersect_all_{species}_{sample}_forward.log"
     conda:

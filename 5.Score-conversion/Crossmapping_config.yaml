@@ -1,51 +1,92 @@
+####### The path to the split chCADD score for each chromosome
+
 Chromosomes:
-    chr1: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr1.tsv
-    chr2: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr2.tsv
-    chr3: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr3.tsv
-    chr4: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr4.tsv
-    chr5: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr5.tsv
-    chr6: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr6.tsv
-    chr7: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr7.tsv
-    chr8: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr8.tsv
-    chr9: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr9.tsv
-    chr10: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr10.tsv
-    chr11: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr11.tsv
-    chr12: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr12.tsv
-    chr13: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr13.tsv
-    chr14: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr14.tsv
-    chr15: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr15.tsv
-    chr16: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr16.tsv
-    chr17: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr17.tsv
-    chr18: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr18.tsv
-    chr19: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr19.tsv
-    chr20: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr20.tsv
-    chr21: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr21.tsv
-    chr22: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr22.tsv
-    chr23: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr23.tsv
-    chr24: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr24.tsv
-    chr25: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr25.tsv
-    chr26: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr26.tsv
-    chr27: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr27.tsv
-    chr28: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr28.tsv
-    chr30: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr30.tsv
-    chr31: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr31.tsv
-    chr32: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr32.tsv
-    chr33: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chr33.tsv
-    chrZ: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/split_CADD/chCADD_chrZ.tsv
+    chr1: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr1.tsv
+    chr2: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr2.tsv
+    chr3: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr3.tsv
+    chr4: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr4.tsv
+    chr5: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr5.tsv
+    chr6: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr6.tsv
+    chr7: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr7.tsv
+    chr8: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr8.tsv
+    chr9: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr9.tsv
+    chr10: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr10.tsv
+    chr11: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr11.tsv
+    chr12: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr12.tsv
+    chr13: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr13.tsv
+    chr14: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr14.tsv
+    chr15: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr15.tsv
+    chr16: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr16.tsv
+    chr17: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr17.tsv
+    chr18: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr18.tsv
+    chr19: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr19.tsv
+    chr20: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr20.tsv
+    chr21: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr21.tsv
+    chr22: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr22.tsv
+    chr23: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr23.tsv
+    chr24: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr24.tsv
+    chr25: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr25.tsv
+    chr26: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr26.tsv
+    chr27: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr27.tsv
+    chr28: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr28.tsv
+    chr30: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr30.tsv
+    chr31: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr31.tsv
+    chr32: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr32.tsv
+    chr33: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chr33.tsv
 
 
-chicken_ref: /home/sspeak/projects/joint/ss_lpa_shared/chicken_Galgal6_ref/Gallus_gallus.GRCg6a.dna_rm.toplevel.fa
+####chrZ: {path_to_working_dir}chCADD_raw/split_CADD/chCADD_chrZ.tsv
+######## The path to the chCADD scores converted to bed format
+CADD_bed:
+   chr10:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr10_1_based.bed
+   chr11:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr11_1_based.bed
+   chr12:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr12_1_based.bed
+   chr13:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr13_1_based.bed
+   chr14:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr14_1_based.bed
+   chr15:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr15_1_based.bed
+   chr16:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr16_1_based.bed
+   chr17:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr17_1_based.bed
+   chr18:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr18_1_based.bed
+   chr19:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr19_1_based.bed
+   chr1:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr1_1_based.bed
+   chr20:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr20_1_based.bed
+   chr21:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr21_1_based.bed
+   chr22:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr22_1_based.bed
+   chr23:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr23_1_based.bed
+   chr24:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr24_1_based.bed
+   chr25:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr25_1_based.bed
+   chr26:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr26_1_based.bed
+   chr27:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr27_1_based.bed
+   chr28:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr28_1_based.bed
+   chr2:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr2_1_based.bed
+   chr30:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr30_1_based.bed
+   chr31:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr31_1_based.bed
+   chr32:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr32_1_based.bed
+   chr33:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr33_1_based.bed
+   chr3:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr3_1_based.bed
+   chr4:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr4_1_based.bed
+   chr5:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr5_1_based.bed
+   chr6:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr6_1_based.bed
+   chr7:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr7_1_based.bed
+   chr8:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr8_1_based.bed
+   chr9:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chr9_1_based.bed
+   chrZ:{path_to_raw_chCADD}split_CADD/bed_files/chCADD_chrZ_1_based.bed
 
-species_ref: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/ref_genome/ncbi-genomes-2023-05-03/GCF_028858705.1_bGruAme1.mat_genomic.fna.gz
+##### The path to the chicken reference genome 
+chicken_ref: {path_to_working_dir}chicken_Galgal6_ref/Gallus_gallus.GRCg6a.dna_rm.toplevel.fa
 
-chCADD_raw: /home/sspeak/projects/joint/ss_lpa_shared/chCADD_raw/chCADD.tsv.gz
+##### The path to the species reference genome
+species_ref: {path_to_working_dir}/{path_to_reference_genome}
+
+##### species shortened name
+species: {shortened_name}
+
+##### raw chCADD original file
+chCADD_raw: {path_to_working_dir}chCADD_raw/chCADD.tsv.gz
 
 ######### if chain file already exists add PATH below #####
 
-### passenger pigeon
-#chain_file: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/btp_CADD_scores/galGal6ToPfasc.over.chain.gz
+chain_file: {path_to_working_dir}/{path_to_chain_file}.over.chain.gz
 
-### Whooping crane
-chain_file: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/chain_file_creation/galGal6ToGruAme.over.chain.gz
-
+### for bed format conversion
 bed_conversion: OFS="\t"

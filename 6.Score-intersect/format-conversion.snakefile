@@ -1,4 +1,4 @@
-configfile: "/home/sspeak/projects/joint/ss_lpa_shared/scripts/reads-2-CADD-snakemake/2.Read-mapping/bwa_alignment.config.yaml"
+configfile: "{path_to_working_dir}scripts/reads-2-CADD-snakemake/2.Read-mapping/bwa_alignment.config.yaml"
 
 species = config["species"]
 

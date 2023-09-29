@@ -1,21 +1,22 @@
+##### A short name for the species
 individuals: 
-    NIATT_ARIZONA: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna
-#   GruAme: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/ref_genome/ncbi-genomes-2023-05-03/GCF_028858705.1_bGruAme1.mat_genomic.fna
+   {shortened_name}: {path_to_working_dir}/{path_reference_genome}
 
-species: passenger_pigeon
-#species: Whooping_crane
+##### The name of the species and this should be used as the working directory for the project 
+##### Must be the same as the short name from above
+species: {shortened_name}
 
-genome_path: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/genomes
-#genome_path: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/genomes
+##### The path to the species reference genome (should be in format so final dir == genomes)
 
-probe_file: /home/sspeak/projects/joint/ss_lpa_shared/ARBOR-probes/uce-5k-probes.fasta
+genome_path: {path_to_working_dir}/{path_to_genomes}
 
-config_file: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/phyluce_config.txt
-#config_file: /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/phyluce_config.txt
+##### The path to the UCE-probes 
+probe_file: {path_to_working_dir}/{UCE-Path}/uce-5k-probes.fasta
 
-out_dir: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/genomes/UCE/
-#out_dir:  /home/sspeak/projects/joint/ss_lpa_shared/Whooping-crane/UCE/extraction
+##### The size of the desired flanking regions for the UCEs
 
 flank-size: 1000
+
+#### Params for orientation conversion script 
 
 params_orientation: sed -e s/"'"//g | sed -e 's/set(\[\([+]]*\)\])/forward/g' | sed -e 's/set(\[\([-]]*\)\])/reverse/g'

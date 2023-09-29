@@ -1,14 +1,22 @@
+##### The paths to get to the samples fastq files
+
 samples:
-    SRR1303448: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/fastq/SRR1303448.fastq
+    {names_of_samples: {path_to_working_dir}/{paths_to_fastq}.fastq
 
-######### The Individuals name that you gave to the reference genome that the UCEs were extracted from.
-UCE_individual: NIATT_ARIZONA
+##### The short "individuals" name that you gave to the reference genome that the UCEs were extracted from.
 
-ref_genome: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna
+UCE_individual: {shortened_name}
 
-ref_genome_index: /home/sspeak/projects/joint/ss_lpa_shared/passenger_pigeon/base/GCA_002029285.1_NIATT_ARIZONA_genomic.fna.fai
 
+##### The paths to the refernce genome
+ref_genome: {path_to_working_dir}/{path_to_reference_genome}.fna
+
+ref_genome_index: {path_to_working_dir}/{path_to_reference_genome}.fna.fai
+
+
+##### Mutation rate
 prior_mutation_rate: 0.001
 
-#species: Passenger_pigeon
-species: GruAme
+##### Short species name
+
+species: {shortened_name}
