@@ -10,3 +10,16 @@ The pipeline uses as input the sequencing reads of the target individuals, the t
 4) (Light grey) Creation of a chain file for the liftover of annotation from the chicken genome.
 5) (Dark Grey) chCADD scores conversion to pink pigeon (subject species) annotation.
 6) (Green) Intersection of BED files and UCE sites to output per site ppCADD (subject species) scores (Red). 
+
+**Setting paths**
+When you are setting up the pipeline you must input the PATHS to your data and working directories.
+To help with this you edit the file: scripts/add_paths_to_snakefiles.sh. (designed for a slurm system) 
+Then execute scripts/add_paths_to_snakefiles.sh. 
+You should then also edit and check the confiuration .yaml files along with the snakemake files to ensure PATHS are correct.
+
+**Publication:**
+Preprint of analysis for original pipeline release DOI: 10.22541/au.169566325.52568264/v1
+
+
+
+
