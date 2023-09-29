@@ -14,8 +14,11 @@ The pipeline uses as input the sequencing reads of the target individuals, the t
 **Setting paths**
 
 When you are setting up the pipeline you must input the PATHS to your data and working directories.
-To help with this you edit the file: scripts/add_paths_to_snakefiles.sh. (designed for a slurm system) 
+
+To help with this you edit the file: scripts/add_paths_to_snakefiles.sh. (designed for a slurm system)
+
 Then execute scripts/add_paths_to_snakefiles.sh. 
+
 You should then also edit and check the confiuration .yaml files along with the snakemake files to ensure PATHS are correct.
 
 **Publication:**
