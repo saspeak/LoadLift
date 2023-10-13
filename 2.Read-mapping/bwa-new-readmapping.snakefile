@@ -23,15 +23,19 @@ def get_input_fastqs(wildcards):
 ####### When working with illmina/ non-10X reads we need to trim them and align them separately. 
 rule fastq_trimming:
     input:
-        get_input_fastqs
+        raw_1="fastq/{sample}/{access}_1.fastq.gz",
+        raw_2="fastq/{sample}/{access}_2.fastq.gz"
     output:
-        "trimmed_reads/{sample}_trimmed.fq.gz"
+        paired_1="trimmed_reads/{sample}/{access}_1_out_paired.fastq",
+        unpaired_1="trimmed_reads/{sample}/{access}_1_out_unpaired.fastq",
+        paired2="trimmed_reads/{sample}/{access}_2_out_paired.fastq",
+        unpaired_2="trimmed_reads/{sample}/{access}_2_out_unpaired.fastq"
     params:
-        '-M 0.05 -N 0.75 -m 0.8 -n 0.02 -X 0.25 -Z 26'
+        "ILLUMINACLIP:scripts/trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:36"
     log:
         "logs/seq_prep/{sample}.log"
     shell:
-        "(SeqPrep {params} -f {input} -r {input} -1 {output} -2 2_{output}) 2> {log}"
+        "(trimmomatic PE -phred33 {input} {output} {params}) 2> {log}"
 
 ####### Once the reads have been trimmed we can align them to the reference genome using bwa mem 
 
@@ -49,19 +53,32 @@ rule bwa_map:
     input:
         genome=config["ref_genome"],
         index_ref=config["ref_genome_index"],
-        forward="trimmed_reads/{sample}_trimmed.fq.gz"
+        first_reads="trimmed_reads/{sample}/{access}_1_out_paired.fastq",
+        second_reads="trimmed_reads/{sample}/{access}_2_out_paired.fastq"
     output:
-        temp("mapped_reads/{sample}.bam")
+        temp("mapped_reads/{sample}/{access}.bam")
     params:
-        rg=r"@RG\tID:{sample}\tSM:{sample}"
+        #rg=r"@RG\tID:{sample}\tSM:{sample}"
     conda:
-        "env/aligning_env.yml"
+        "aligning_env"
     log:
-        "logs/bwa_mem/{sample}.log"
+        "logs/bwa_mem/{sample}_{access}.log"
     threads: 8
     shell:
-        "(bwa mem -R '{params.rg}' -t {threads} {input.genome} {input.forward} | "
-        "samtools view -Sb - > {output}) 2> {log}"
+        "(bwa mem -t {threads} {input.genome} {input.first_reads} {input.second_reads} | "
+        "samtools view -Sb > {output}) 2> {log}"
+
+####### If you have multiple lanes for each individual you can merge the bam files together
+
+rule samtools_merge:
+    input:
+        bam_files=lambda wildcards:expand(["mapped_reads/{{sample}}/{access}.bam"],access=config[wildcards.sample])
+    output:
+        temp("mapped_reads/merged_reads/{sample}.bam")
+    conda:
+        "aligning_env"
+    shell:
+        "samtools merge -o {output} {input.bam_files}"
 
 ##### Once we have the aligned bam files we need to do duplicate and indel removal 
 ##### start by sorting the bam files (again this is automatic for the 10X long ranger tool)
