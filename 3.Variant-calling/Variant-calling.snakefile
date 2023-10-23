@@ -1,4 +1,4 @@
-configfile: "bwa_alignment.config.yaml"
+configfile: "{path_to_LoadLift}reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
 
 rule all:
     input:
