@@ -102,7 +102,7 @@ rule Merge_chains:
     conda:
         "chainfile_creation_env"
     shell:
-        "chainMergeSort {input} {output}"
+        "chainMergeSort {input} > {output}"
 
 rule Sort_chains:
     input:
