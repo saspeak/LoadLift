@@ -85,7 +85,7 @@ rule samtools_merge:
 
 rule samtools_sort:
     input:
-        "mapped_reads/{sample}.bam"
+        "mapped_reads/merged_reads/{sample}.bam"
     output:
         protected("sorted_reads/{sample}.bam")
     conda:
