@@ -1,7 +1,7 @@
 ##### The paths to get to the samples fastq files
 
 samples:
-    {names_of_samples: {path_to_working_dir}/{paths_to_fastq}.fastq
+    {names_of_samples}: {path_to_working_dir}/{paths_to_fastq}.fastq
 
 ##### The short "individuals" name that you gave to the reference genome that the UCEs were extracted from.
 
