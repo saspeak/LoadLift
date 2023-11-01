@@ -56,7 +56,7 @@ rule bwa_map:
         first_reads="trimmed_reads/{sample}/{access}_1_out_paired.fastq",
         second_reads="trimmed_reads/{sample}/{access}_2_out_paired.fastq"
     output:
-        temp("mapped_reads/{sample}/{access}.bam")
+        protected("mapped_reads/{sample}/{access}.bam")
     params:
         #rg=r"@RG\tID:{sample}\tSM:{sample}"
     conda:
@@ -100,7 +100,7 @@ rule duplicate_removal:
     input:
         "sorted_reads/{sample}.bam"
     output:
-        "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam"
+        "sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam"
     log:
         "logs/dup_rmv/{sample}.log"
     params:
@@ -118,9 +118,9 @@ rule duplicate_removal:
 
 rule samtools_index:
     input:
-        "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam"
+        "sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam"
     output:
-        "/sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai"
+        "sorted_reads/duplicate_rmv/{sample}_picard_dup_removed.bam.bai"
     conda:
         "env/aligning_env.yml"
     shell:
@@ -137,7 +137,7 @@ rule bcftools_forward_call:
     output:
         "variant_calls/forward/all_{species}_forward_orient.bcf"
     params:
-        calling="-Ou -q 10 -C 50 -a AD,DP ",
+        calling="-Ou -Q 30 -q 30 -C 50 -a AD,DP ",
         UCE_forward_path="UCE_regions/forward/",
         individual=config["UCE_individual"],
         UCE_file="_UCE_forward_orient_regions.txt"
@@ -160,7 +160,7 @@ rule bcftools_reverse_call:
     output:
         "variant_calls/reverse/all_{species}_reverse_orient.bcf"
     params:
-        calling="-Ou -q 10 -C 50 -a AD,DP ",
+        calling="-Ou -Q 30 -q 30 -C 50 -a AD,DP ",
         UCE_reverse_path="UCE_regions/reverse/",
         individual=config["UCE_individual"],
         UCE_file="_UCE_reverse_orient_regions.txt"
