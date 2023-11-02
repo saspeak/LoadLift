@@ -3,8 +3,7 @@ configfile: "{path_to_working_dir}scripts/reads-2-CADD-snakemake/Variant-calling
 rule intersection_reverse:
     input:
         bed="bed_calls/{sample}_reverse/all_{species}_{sample}_reverse_orient_INDEL_rmv_or_cor.bed",
-        #CADD="merged_chr/all_chr_btpCADD_1_based.bed.gz"
-        CADD="merged_chr/chr_16_woop_base_1.bed"
+        CADD="merged_chr/all_chr_{species}CADD_1_based.bed.gz"
     output:
         "bed_calls/{sample}_reverse/intersect/all_{species}_{sample}_reverse_orient_INDEL_rmv_or_cor_intersect_CADD.bed"
     params:
@@ -47,8 +46,7 @@ rule SNP_check_reverse:
 rule intersection_forward:
     input:
         bed="bed_calls/{sample}_forward/all_{species}_{sample}_forward_orient_INDEL_rmv.bed",
-        #CADD="merged_chr/all_chr_btpCADD_1_based.bed.gz"
-        CADD="merged_chr/chr_16_woop_base_1.bed"
+        CADD="merged_chr/all_chr_{species}CADD_1_based.bed.gz"
     output:
         "bed_calls/{sample}_forward/intersect/all_{species}_{sample}_forward_orient_INDEL_rmv_intersect_CADD.bed"
     params:
