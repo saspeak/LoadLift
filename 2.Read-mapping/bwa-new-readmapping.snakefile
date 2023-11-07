@@ -1,4 +1,4 @@
-configfile: "{path_to_LoadLift}reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
+configfile: "{path_to_LoadLift}2.Read-mapping/bwa_alignment.config.yaml"
 
 species = config["species"]
 genome = config["ref_genome"]
