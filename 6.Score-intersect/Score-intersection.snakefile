@@ -1,4 +1,4 @@
-configfile: "{path_to_working_dir}scripts/reads-2-CADD-snakemake/Variant-calling/2.Read-mapping/bwa_alignment.config.yaml"
+configfile: "{path_to_LoadLift}/2.Read-mapping/bwa_alignment.config.yaml"
 
 rule intersection_reverse:
     input:
