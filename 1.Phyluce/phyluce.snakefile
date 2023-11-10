@@ -3,6 +3,13 @@ configfile: "{path_to_LoadLift}LoadLift/1.Phyluce/UCE-config.yaml"
 def get_input_genome(wildcards):
     return config["individuals"][wildcards.individual]
 
+species=config["short_name"]
+
+rule all:
+    input:
+        "UCE_regions/forward/"+species+"_UCE_forward_orient_regions.txt",
+        "UCE_regions/reverse/"+species+"_UCE_reverse_orient_regions.txt"
+
 rule make_2bit:
     input:
         genome=get_input_genome
