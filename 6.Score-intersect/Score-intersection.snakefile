@@ -21,7 +21,7 @@ rule SNP_orient_correction:
     output:
         "bed_calls/{sample}_reverse/all_{species}_{sample}_reverse_orient_INDEL_rmv_or_cor.bed"
     params:
-        "-f {path_to_working_dir}scripts/reads2CADD/ppCADD_intersect/Orient_conversion.awk"
+        "-v b=6 -v e=100 -f {path_to_LoadLift}/scripts/Orient_conversion_reverse.awk"
     log:
         "logs/intersect/intersect_all_{species}_{sample}_reverse.log"
     conda:
@@ -35,7 +35,7 @@ rule SNP_check_reverse:
     output:
         "bed_calls/{sample}_reverse/intersect/all_{species}_{sample}_reverse_orient_INDEL_rmv_intersect_CADD_orient_cor_summary.bed"
     params:
-        "-f {path_to_working_dir}scripts/reads2CADD/ppCADD_intersect/SNP_check-short_Or_reverse_corr.awk"
+        "-v b=6 -v e=100 -f {path_to_LoadLift}/scripts/SNP_check_reverse.awk"
     log:
         "logs/intersect/intersect_all_{species}_{sample}_reverse.log"
     conda:
@@ -64,7 +64,7 @@ rule SNP_check_forward:
     output:
         "bed_calls/{sample}_forward/intersect/all_{species}_{sample}_forward_orient_INDEL_rmv_intersect_CADD_summary.bed"
     params:
-        "-f {path_to_working_dir}scripts/reads2CADD/ppCADD_intersect/SNP_check-short.awk"
+        "-v b=6 -v e=100 -f {path_to_LoadLift}/scripts/SNP_check_forward.awk"
     log:
         "logs/intersect/intersect_all_{species}_{sample}_forward.log"
     conda:
