@@ -196,7 +196,7 @@ rule net_chains:
     conda:
         "chainfile_creation_env"
     shell:
-        "chainNet {input.chain} {input.galgal_chr} {input.subject_chr} {output}"
+        "chainNet {input.chain} {input.galgal_chr} {input.subject_chr} {output} /dev/null"
 
 rule net_Chain_Subset:
     input:
