@@ -20,3 +20,7 @@ prior_mutation_rate: 0.001
 ##### Short species name
 
 species: {shortened_name}
+
+##### The type of samples i.e. Historical, Modern, Wild
+
+type: {type of sample}

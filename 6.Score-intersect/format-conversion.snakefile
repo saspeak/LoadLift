@@ -2,14 +2,18 @@ configfile: "{path_to_LoadLift}/2.Read-mapping/bwa_alignment.config.yaml"
 
 species = config["species"]
 
+species = config["species"]
+type = config["type"]
+
 rule all:
-	input: 
-		"bed_calls/forward/all_"+ species +"_forward_orient_INDEL_rmv.bed"
-#		"bed_calls/reverse/all_"+ species +"_reverse_orient_INDEL_rmv.bed"
+    input: 
+        "bed_calls/"+ type + "_forward/all_" + species + "_"+ type + "_forward_orient_INDEL_rmv.bed",
+        "bed_calls/"+ type + "_reverse/all_" + species + "_"+ type + "_reverse_orient_INDEL_rmv.bed"
 
 rule indel_rmv:
     input:
         "variant_calls/{sample}/all_{species}_{sample}_orient.bcf"
+        #"variant_calls/{sample}/all_{species}_{sample}_orient_merged.vcf"
     output:
         "variant_calls/{sample}/all_{species}_{sample}_orient_snps_only.recode.vcf"
     params:
@@ -49,4 +53,3 @@ rule filter_indel:
         "bcftools_env"
     shell:
         "(grep {params} {input} > {output}) 2> {log}"
-
