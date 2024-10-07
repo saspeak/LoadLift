@@ -23,7 +23,7 @@ You should then also edit and check the confiuration .yaml files along with the 
 
 **Publication:**
 
-Preprint of analysis for original pipeline release DOI: 10.22541/au.169566325.52568264/v1
+Publication of analysis for original pipeline release DOI: https://doi.org/10.1111/1755-0998.13967
 
 
 
